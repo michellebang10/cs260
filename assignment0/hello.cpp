@@ -1,11 +1,8 @@
+
 #include <iostream>
 
-using std::cout;
-using std::endl;
-
-//Just a simple hello world program!
-int main(int argc, char **argv) {
-    cout << "Hello world!" << endl;
+int main(void) {
+    std::cout << "Hello world, is anyone out there, stuff?";
 
     return 0;
 }
