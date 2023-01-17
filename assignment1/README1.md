@@ -53,4 +53,8 @@ Notes:
 
 6) https://www.w3schools.com/cpp/cpp_conditions_elseif.asp 
 
+7) https://stackoverflow.com/questions/879603/remove-an-array-element-and-shift-the-remaining-ones#:~:text=In%20C%2B%2B11%2C%20use,end(array)%2C%203)%3B 
+
+8) https://www.geeksforgeeks.org/delete-an-element-from-array-using-two-traversals-and-one-traversal/
+
 -It's been pretty hard to get used to the basic C++ rules :( Even though my program may not seem perfect, I did spend a lot of time looking at different online material! 
