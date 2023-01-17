@@ -2,13 +2,53 @@
 
 A) In this program, marbles are represented by integers.
 
+CODE) int bagfive[5] = {1, 2, 3, 4, 5};
+
 2) A way to add new marbles into the bag (how do we interact with marbles and add them into the bag?)
 
 A) The bag is represented by a C++ array. Marbles are added into the bag by being added into an array. 
 
+CODE)
+    bagfive[5] = 6;
+
+    int n_new = sizeof(bagfive) / sizeof(int);
+
+    cout << "the new array has a length of size: ";
+
+    cout << n_new << endl;
+
 3) A way to remove a marble out of the bag (perhaps a random marble taken out of the bag?)
 
 A) For randomly chosen marble, indexing will be used to remove the marble at the indexed position. For a specifically chosen marble, we would find the index that corresponds to that marble and remove it. 
+
+CODE) 
+    cout << "this was the marble in index 3 before: ";
+
+    cout << bagfive[3] << endl;
+
+    // 4 should be printed out
+
+    for(int i = 0; i < 5; i++) {
+
+        if (i < 3) {
+
+            bagfive[i] = bagfive[i];
+
+        } else {
+
+            bagfive[i] = bagfive[i + 1];
+
+        }
+
+    }
+
+    bagfive[5] = NULL;
+
+    int n_new_new = sizeof(bagfive) / sizeof(int);
+
+    cout << "length of new array with 1 element removed: ";
+
+    cout << n_new_new << endl;
 
 4) A few ways that we could use to show that our implementation should be working correctly (tests)
 
@@ -16,12 +56,17 @@ A)
 
     -Empty bag
 
-        -Remove a marble
+        -Show that the bag is empty
 
-            want to show that there is a error
+            if (bagemp[0] == NULL){
+                cout << "bag is empty!" << endl;
+            }
+
         -Add a marble
 
-            Remove the marble and show it's the same one that was added in.
+            bagemp[0] = 0;
+            cout << "seeing if 0 was added to array" << endl;
+            cout << bagemp[0] << endl;
 
     -Start with bag with n marbles
 
@@ -29,13 +74,66 @@ A)
 
             Show that the marble removed is no longer there
 
+             // removing one marble in the middle (index 3, value 4)
+
+            cout << "this was the marble in index 3 before: ";
+            cout << bagfive[3] << endl;
+            // 4 should be printed out
+
+            for(int i = 0; i < 5; i++) {
+                if (i < 3) {
+                bagfive[i] = bagfive[i];
+            } else {
+                bagfive[i] = bagfive[i + 1];
+            }
+        }
+
+            bagfive[5] = NULL;
+
+            int n_new_new = sizeof(bagfive) / sizeof(int);
+            cout << "length of new array with 1 element removed: ";
+            cout << n_new_new << endl;
+
+            cout << "checking if marble was removed" << endl;
+            for(int i = 0; i < n_new_new; i++) {
+            cout << bagfive[i] << endl;
+        }
+        // 1, 2, 3, 5, 6 should be printed out
+
         -Add a marble
 
-            Remove the marble and show that it’s the same one that was added in
+            Show that it’s the same one that was added in
+
+            // add one marble at the end
+            bagfive[5] = 6;
+            int n_new = sizeof(bagfive) / sizeof(int);
+            cout << "the new array has a length of size: ";
+            cout << n_new << endl;
+
+            cout << "checking new marble was added" << endl;
+            for(int i = 0; i < n_new; i++) {
+                cout << bagfive[i] << endl;
+            }
+            //  1, 2, 3, 4, 5, 6 should be printed out in separate lines
+
+            cout << "this marble was added in: ";
+            cout << bagfive[5] << endl;
 
         -Keep removing marbles until empty bag
 
             Show that after n removals, the bag is empty
+
+            // keep removing the elements in bagfive until empty
+
+            for(int i = 0; i < n_new_new; i++) {
+            bagfive[i] = NULL;
+            }
+
+            // checking that bag is empty
+            if (bagemp[0] == NULL){
+                cout << "bag is empty!" << endl;
+            }
+            // the above should be printed out
 
 Notes:
 
