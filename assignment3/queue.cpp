@@ -19,7 +19,7 @@ Node *enqueue(int new_value, Node *back) {
 Node *dequeue(Node *front){
     // remove element from front and returns its value
     if(front == nullptr) {
-      return nullptr;
+     return nullptr;
     }
 
     // grab onto next value
@@ -31,29 +31,39 @@ Node *dequeue(Node *front){
 }
 
 int peek(Node *top) {
+    // function that takes the value of the first element without removing it
     return top->value;
 }
 
 
 int main(int argc, char **argv) {
-    Node top(10, nullptr);
-    Node bottom(12, nullptr);
+    // Node top(10, nullptr);
+    // Node bottom(12, nullptr);
+
     // pointer to node, pointing to top
-    Node *head_ptr = &top;
+    // Node *head_ptr = &top;
+    Node *head_ptr = enqueue(10, nullptr);
     // point to node, pointing to bottom
-    Node *tail_ptr = &bottom;
+    // Node *tail_ptr = &bottom;
+    Node *tail_ptr = enqueue(12, nullptr);
+
+    //top.next = &bottom;
+    head_ptr->next = tail_ptr;
 
     // should print 10
-    cout << "top.value: " << top.value << endl;
+    //cout << "top.value: " << top.value << endl;
+    cout << "head_ptr->value:  " << head_ptr->value << endl;
 
     // should print 10
     cout << "peek(head_ptr): " << peek(head_ptr) << endl;
 
     // showing that top still exists as 10
-    cout << "top.value: " << top.value << endl;
+    //cout << "top.value: " << top.value << endl;
+    cout << "head_ptr->value:  " << head_ptr->value << endl;
     
     // should print 12
-    cout << "bottom.value: " << bottom.value << endl;
+    //cout << "bottom.value: " << bottom.value << endl;
+    cout << "tail_ptr->value:  " << tail_ptr->value << endl;
 
     cout << "tail_ptr: " << tail_ptr << endl;
 
@@ -74,7 +84,7 @@ int main(int argc, char **argv) {
     cout << "head_ptr->value: " << head_ptr->value << endl;
 
     // removing the top value of queue (dequeue)
-    head_ptr = dequeue(head_ptr); // this isn't working???
+    head_ptr = dequeue(head_ptr); 
 
     cout << "dequeue is working!" << endl;
 
