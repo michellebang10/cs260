@@ -1,5 +1,6 @@
 // Following Node class structure taught in class :)!
 // Also this page: https://www.geeksforgeeks.org/queue-linked-list-implementation/ 
+#pragma once
 
 class Node {
     public:
