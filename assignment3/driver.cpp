@@ -11,13 +11,22 @@ int main(int argc, char **argv) {
 
     // pointer to node, pointing to top
     // Node *head_ptr = &top;
+
+    // important first element!!
     Node *head_ptr = enqueue(10, nullptr);
+    Node *tail_ptr = head_ptr;
+    // treating tail as a normal element added to the queue
+    tail_ptr = enqueue(12, tail_ptr);
+
+    // no need after updating enqueue function
+    //head_ptr->next = tail_ptr;
+
     // point to node, pointing to bottom
     // Node *tail_ptr = &bottom;
-    Node *tail_ptr = enqueue(12, nullptr);
+    //Node *tail_ptr = enqueue(12, nullptr);
 
     //top.next = &bottom;
-    head_ptr->next = tail_ptr;
+   
 
     // should print 10
     //cout << "top.value: " << top.value << endl;
@@ -55,9 +64,17 @@ int main(int argc, char **argv) {
     // removing the top value of queue (dequeue)
     head_ptr = dequeue(head_ptr); 
 
-    cout << "dequeue is working!" << endl;
+    cout << "dequeue is working! first time!" << endl;
 
     //should print 12
+    cout << "head_ptr->value: " << head_ptr->value << endl;
+
+    // removing the top value of queue (dequeue)
+    head_ptr = dequeue(head_ptr); 
+
+    cout << "dequeue is working! second time!" << endl;
+
+    //should print 11
     cout << "head_ptr->value: " << head_ptr->value << endl;
 
 }

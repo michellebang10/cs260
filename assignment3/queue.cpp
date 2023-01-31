@@ -9,14 +9,18 @@
 using std::cout;
 using std::endl;
 
-Node *enqueue(int new_value, Node *back) {
+Node *enqueue(int new_value, Node *back) { // O(1) no matter what the input, the run time is the same.
 // add value to the back of queue
-    Node *new_node = new Node(new_value, back);
+    Node *new_node = new Node(new_value, nullptr);
+
+    if (back != nullptr){
+        back->next = new_node;
+    }
 
     return new_node;
 }
 
-Node *dequeue(Node *front){
+Node *dequeue(Node *front){ // O(1) no matter what the input, the run time is the same.
     // remove element from front and returns its value
     if(front == nullptr) {
      return nullptr;
@@ -30,7 +34,7 @@ Node *dequeue(Node *front){
     return next;
 }
 
-int peek(Node *top) {
+int peek(Node *top) { // O(1) no matter what the input, the run time is the same.
     // function that takes the value of the first element without removing it
     return top->value;
 }
