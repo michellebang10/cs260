@@ -13,6 +13,7 @@ int main(int argc, char **argv) {
     // Node *head_ptr = &top;
 
     // important first element!!
+    // i have learned my lesson and will use a classes from now on!!
     Node *head_ptr = enqueue(10, nullptr);
     Node *tail_ptr = head_ptr;
     // treating tail as a normal element added to the queue
