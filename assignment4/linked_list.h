@@ -14,7 +14,7 @@ class LinkedList {
         LinkedList();
         int get_size();
         void add(int new_value, int new_position);
-        int remove(int old_position);
+        void remove(int old_position);
         int get(int position);
 };
 

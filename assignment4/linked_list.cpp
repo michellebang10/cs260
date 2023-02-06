@@ -40,27 +40,36 @@ void LinkedList::add(int new_value, int new_position) {
 }
 
 //some way to remove values off of my list
-int LinkedList::remove(int old_position) {
-    int result = -1;
+void LinkedList::remove(int old_position) {
 
-    if(front != nullptr) {
-        result = front->value;
-        Node *old_node = front;
-
-        front = front->next;
-        delete old_node;
+    Node *current = front;
+   
+    if(current != nullptr){
+        for(int current_position = 0; current_position < old_position && current->next != nullptr; ++current_position) {
+            current = current->next;
+        }
+        Node *next = current->next;
+        delete current->next;
         --size;
-    } else{
-        cout << "the list is empty, nothing to remove :(" << endl;
     }
 
-    return result;
+    if(old_position < 0){
+        cout << "the list is empty, nothing to remove :(" << endl;
+    }
+    
 }
 
 int LinkedList::get(int position) {
-/********************************************************************
-* Insert code here for get function
-*********************************************************************/
-    return -1; //remember to remove or replace this line!
+    Node *current = front;
+    //check for empty
+    if(current != nullptr){
+        //find where the new node should go
+        for(int current_position = 0; current_position < position && current->next != nullptr; ++current_position) {
+            // pass
+        }
+        return current->value;
+    } else {
+        return current->value;
+    }
 }
 
