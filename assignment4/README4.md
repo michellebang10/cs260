@@ -6,10 +6,12 @@
 
     from linked_list.cpp:
 
+
 void LinkedList::add(int new_value, int new_position) { 
+
     Node *new_node = new Node(new_value, nullptr);
     Node *current = front; 
-    //check for empty
+
     if(current != nullptr){ //O(n) complexity... going through a straight path no matter what...
         //find where the new node should go
         for(int current_position = 0; current_position < new_position && current->next != nullptr; ++current_position) {
@@ -35,6 +37,7 @@ void LinkedList::add(int new_value, int new_position) {
     -delete the old node
 
     from linked_list.cpp:
+
 
 void LinkedList::remove(int old_position) {
 
@@ -65,6 +68,7 @@ void LinkedList::remove(int old_position) {
     -get value of that position
 
     from linked_list.cpp:
+
 
 int LinkedList::get(int position) {
 
