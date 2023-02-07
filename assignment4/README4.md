@@ -67,8 +67,9 @@ void LinkedList::remove(int old_position) {
     from linked_list.cpp:
 
 int LinkedList::get(int position) {
+
     Node *current = front;
-    //check for empty
+  
     if(current != nullptr){ //O(n) going through a straight path....
         //find where the new node should go
         for(int current_position = 0; current_position < position && current->next != nullptr; ++current_position) {
