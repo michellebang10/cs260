@@ -8,7 +8,6 @@ General idea/outline is from class code!!
 
 class LinkedList {
     private:
-        //some way to know where the front of the list is (for add, remove, get, and maybe more...?)
         Node *front = nullptr;
         int size = 0;
 

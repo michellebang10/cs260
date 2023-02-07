@@ -21,7 +21,6 @@ int LinkedList::get_size() {return size;}
 
 void LinkedList::add(int new_value, int new_position) { 
     //some way to add values into my list inserted one position after the position given
-    //create generic node, then specialize it later based on our situation
     Node *new_node = new Node(new_value, nullptr);
     Node *current = front; 
     //check for empty
@@ -43,8 +42,9 @@ void LinkedList::add(int new_value, int new_position) {
     ++size;
 }
 
-//some way to remove values off of my list
+
 void LinkedList::remove(int old_position) {
+    //some way to remove values off of my list
 
     Node *current = front;
    
@@ -69,6 +69,8 @@ void LinkedList::remove(int old_position) {
 }
 
 int LinkedList::get(int position) {
+    //some way to look at value at specific position in list
+
     Node *current = front;
     //check for empty
     if(current != nullptr){ //O(n) going through a straight path....
