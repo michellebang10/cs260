@@ -7,6 +7,11 @@
 using std::cout;
 using std::endl;
 
+/*
+Basic structure is from class code (Spring 2022)...
+Got a lot of help from the CS tutoring at OSU :D!!
+*/
+
 LinkedList::LinkedList() {
     front = nullptr;
     size = 0;
@@ -14,13 +19,13 @@ LinkedList::LinkedList() {
 
 int LinkedList::get_size() {return size;}
 
-void LinkedList::add(int new_value, int new_position) {
+void LinkedList::add(int new_value, int new_position) { 
     //some way to add values into my list inserted one position after the position given
     //create generic node, then specialize it later based on our situation
-    Node *new_node = new Node{new_value, nullptr};
-    Node *current = front;
+    Node *new_node = new Node(new_value, nullptr);
+    Node *current = front; 
     //check for empty
-    if(current != nullptr){
+    if(current != nullptr){ //O(n) complexity... going through a straight path no matter what...
         //find where the new node should go
         for(int current_position = 0; current_position < new_position && current->next != nullptr; ++current_position) {
             current = current->next;
@@ -31,8 +36,7 @@ void LinkedList::add(int new_value, int new_position) {
         front = new_node;
     }
 
-    //are we adding before the front?
-    if(new_position < 0){
+    if(new_position < 0){ //O(1)... adding right infront of front.
         new_node->next = front;
         front = new_node;
     }
@@ -44,16 +48,21 @@ void LinkedList::remove(int old_position) {
 
     Node *current = front;
    
-    if(current != nullptr){
-        for(int current_position = 0; current_position < old_position && current->next != nullptr; ++current_position) {
+    if(current != nullptr){ //O(n) complexity... going through a straight path....
+        if(old_position == 0){ 
+            front = current->next;
+            delete current;
+        } else{
+            for(int current_position = 0; current_position < old_position && current->next != nullptr; ++current_position) {
             current = current->next;
+            }
+            Node *temp = current->next;
+            current->next = temp->next;
+            delete current->next;
         }
-        Node *next = current->next;
-        delete current->next;
+        
         --size;
-    }
-
-    if(old_position < 0){
+    } else {
         cout << "the list is empty, nothing to remove :(" << endl;
     }
     
@@ -62,14 +71,14 @@ void LinkedList::remove(int old_position) {
 int LinkedList::get(int position) {
     Node *current = front;
     //check for empty
-    if(current != nullptr){
+    if(current != nullptr){ //O(n) going through a straight path....
         //find where the new node should go
         for(int current_position = 0; current_position < position && current->next != nullptr; ++current_position) {
-            // pass
+            current = current->next;
         }
         return current->value;
     } else {
-        return current->value;
+        return -1;
     }
 }
 
