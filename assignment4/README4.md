@@ -11,3 +11,5 @@
 3) Get function
     -get specific position of list
     -get value of that position
+
+Thanks to: lecture videos from spring 2022 and the OSU CS tutoring...
