@@ -12,12 +12,12 @@ Basic structure is from class code (Spring 2022)...
 Got a lot of help from the CS tutoring at OSU :D!!
 */
 
-LinkedList::LinkedList() {
+LinkedList::LinkedList() { //O(1)... nothing to do with length
     front = nullptr;
     size = 0;
 }
 
-int LinkedList::get_size() {return size;}
+int LinkedList::get_size() {return size;} //O(n)
 
 void LinkedList::add(int new_value, int new_position) { 
     //some way to add values into my list inserted one position after the position given
