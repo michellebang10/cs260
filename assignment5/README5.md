@@ -6,13 +6,13 @@ For this assignment, I used a linked list structure to create an auto-sort list.
 
     -Start comparing from the beginning (as we only add one element at a time). If element is bigger than first value, it moves on to the next position and so on until it is smaller than or equal to the value at that position. 
 
-1.1) Removes values given a specific value to search for. 
+2) Removes values given a specific value to search for. 
 
     -Compares values at each position, if given value equals the value at a position, that value is removed and the list is connected again. 
 
     -If the list empty, does not delete any value... returns -2... 
 
-2) Efficiently searches for elements.
+3) Efficiently searches for elements.
 
     -at() function that takes in index/position of list and returns value at that position. 
 
