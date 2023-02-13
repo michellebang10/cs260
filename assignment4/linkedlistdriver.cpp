@@ -49,6 +49,13 @@ int main(int argc, char **argv) {
         cout << "(test failed), expected value: 42, but instead received: " << my_list.get(0) << endl;
     }
 
+    //test that there is no value in position 1 yet 
+    if (my_list.get(1) == -1) {
+        cout << "(test passed) no value is in position 1!" << endl;
+    } else{
+        cout << "(test failed), expected value: -1, but instead received: " << my_list.get(0) << endl;
+    }
+
     //test that remove works
     cout << "test that remove works" << endl;
     //if remove works, then my_list should have size 0

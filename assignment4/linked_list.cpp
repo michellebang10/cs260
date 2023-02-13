@@ -71,14 +71,33 @@ void LinkedList::remove(int old_position) {
 int LinkedList::get(int position) {
     //some way to look at value at specific position in list
 
+    //Node *current = front;
+    //check for empty
+    //if(current != nullptr){ //O(n) going through a straight path....
+        //find where the new node should go
+        //for(int current_position = 0; current_position < position && current->next != nullptr; ++current_position) {
+            //current = current->next;
+        //}
+        //return current->value;
+    //} else {
+        //return -1;
+    //}
+
+    //updated code for get()
     Node *current = front;
     //check for empty
     if(current != nullptr){ //O(n) going through a straight path....
         //find where the new node should go
-        for(int current_position = 0; current_position < position && current->next != nullptr; ++current_position) {
+        int current_position = 0;
+        for(;current_position < position && current->next != nullptr; ++current_position) {
             current = current->next;
         }
-        return current->value;
+        if(current_position != position){
+            return -1;
+        } else{
+            return current->value;
+        }
+        
     } else {
         return -1;
     }
