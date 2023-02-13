@@ -60,22 +60,46 @@ class Auto_sort {
 
         //remove the first instance of a given value
         int remove(int old_value){
-            Node *previous = find_previous_node(old_value);
-            Node *current = previous->next;
-            int current_value = current->value;
+            int current_value = -1;
 
-            previous->next = current->next;
-            delete current;
+            if(front == nullptr){
+                current_value = -2;
+            } else if(front->value == old_value){
+                Node *current = front;
+                current_value = current->value;
+                front = front->next;
+                delete current;
+            } else{
+                Node *previous = find_previous_node(old_value);
+                Node *current = previous->next;
+                int current_value = current->value;
 
-            //previous->next = future;
-            //delete current;
+                previous->next = current->next;
+                delete current;
 
-            return current_value;
+                //previous->next = future;
+                //delete current;
+
+                
+            }
+
+            return current_value;   
         }
 
         //fetch the value stored at index
-        int at(int index){
-
+        int at(int position){
+            // same code from assignment 4... did myself :D!
+            Node *current = front;
+            //check for empty
+            if(current != nullptr){ //O(n) going through a straight path....
+            //find where the new node should go
+            for(int current_position = 0; current_position < position && current->next != nullptr; ++current_position) {
+                current = current->next;
+            }
+            return current->value;
+        } else {
+            return -1;
+        }
         }
 
         string to_string() {
