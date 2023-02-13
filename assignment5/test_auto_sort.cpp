@@ -59,7 +59,7 @@ int main() {
     //remove from end of list
     my_auto_sort->remove(5);
     cout << "my_auto_sort.to_string(): " << my_auto_sort->to_string() << endl;
-    //check position of fifthindex (does not exists value now)... should be -1 now
+    //check position of fifth index (does not exists value now)... should be -1 now
     cout << "my_auto_sort.at(5): " << my_auto_sort->at(5) << endl;
 
     //remove from front of list

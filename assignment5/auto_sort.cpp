@@ -11,7 +11,7 @@ class Auto_sort {
     private:
         Node *front;
 
-        Node *find_previous_node(int value) {
+        Node *find_previous_node(int value) { //O(n) going through a straight path....
             Node *future = front->next;
             Node *current = front;
             while(future != nullptr && value > future->value) {
@@ -25,12 +25,12 @@ class Auto_sort {
     public:
 
         //constructor member function
-        Auto_sort(){
+        Auto_sort(){ //O(1) nothing to do with length of list...
             front = nullptr; 
         }
 
         //add a new value at appropriate value
-        void add(int new_value) {
+        void add(int new_value) { //O(n) going through a straight path....
             //insert when empty?
             if(front == nullptr){
                Node *new_node = new Node(new_value, nullptr);
@@ -59,7 +59,7 @@ class Auto_sort {
         }
 
         //remove the first instance of a given value
-        int remove(int old_value){
+        int remove(int old_value){ //O(n) going through a straight path....
             int current_value = -1;
 
             if(front == nullptr){
@@ -88,25 +88,31 @@ class Auto_sort {
 
         //fetch the value stored at index
         int at(int position){
-            // same code from assignment 4... did myself :D!
+            //same code from assignment 4... did myself :D!
             Node *current = front;
             //check for empty
             if(current != nullptr){ //O(n) going through a straight path....
             //find where the new node should go
-            for(int current_position = 0; current_position < position && current->next != nullptr; ++current_position) {
-                current = current->next;
+                int current_position = 1;
+                for(;current_position < position && current->next != nullptr; ++current_position) {
+                    current = current->next;
+                }
+                if(current_position != position){
+                    return -1;
+                } else{
+                    return current->value;
+                }
+        
+            } else {
+                return -1;
             }
-            return current->value;
-        } else {
-            return -1;
-        }
         }
 
-        string to_string() {
+        string to_string() { //O(n) same reasoning as before...
             string result = "";
 
             Node *current = front;
-            while(current != nullptr){
+            while(current != nullptr){ 
                 result = result + std::to_string(current->value) + ", ";
                 current = current->next;
             }
