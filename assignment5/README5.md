@@ -13,31 +13,57 @@ For this assignment, I used a linked list structure to create an auto-sort list.
 Testing!!
 -Please look into test_auto_sort.cpp for all the tests I did :D
 Expected outputs:
+
 my_auto_sort.to_string(): 
+
 my_auto_sort.at(1): -1
+
 my_auto_sort.to_string(): 1, 
+
 my_auto_sort.at(0): -1
+
 my_auto_sort.to_string(): 1, 5, 
+
 my_auto_sort.at(2): 5
+
 my_auto_sort.to_string(): 1, 3, 5, 
+
 my_auto_sort.at(2): 3
+
 my_auto_sort.to_string(): 0, 1, 3, 5, 
+
 my_auto_sort.at(1): 0
+
 my_auto_sort.to_string(): 0, 0, 1, 3, 5, 
+
 my_auto_sort.at(2): 0
+
 my_auto_sort.to_string(): 0, 0, 1, 3, 3, 5, 
+
 my_auto_sort.at(3): 1
+
 my_auto_sort.at(4): 3
+
 my_auto_sort.to_string(): 0, 0, 1, 3, 5, 
+
 my_auto_sort.at(4): 3
+
 my_auto_sort.to_string(): 0, 0, 1, 3, 
+
 my_auto_sort.at(5): -1
+
 my_auto_sort.to_string(): 0, 1, 3, 
+
 my_auto_sort.at(1): 0
+
 my_auto_sort.to_string(): 1, 3, 
+
 my_auto_sort.at(1): 1
-my_auto_sort.to_string(): 3, 
+
+my_auto_sort.to_string(): 3,
+
 my_auto_sort.to_string(): 
+
 my_auto_sort.to_string(): 
 
 Algorithmic complexity:
