@@ -80,3 +80,5 @@ Algorithmic complexity:
 add(), remove(), at(), find_previous_node(), to_string() all O(n) complexity. Starts from beginning and walks through a straight line up to n. 
 
 Auto_sort() has O(1) complexity. Length of list does not matter, the front is always nullptr. 
+
+THANKS TO: winter 2022 lecture videos!! followed the lecture 10 bonus for majority of this assignment :D and also office hours!!
