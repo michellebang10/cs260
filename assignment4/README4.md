@@ -86,5 +86,17 @@ int LinkedList::get(int position) {
 }
 
 For test, look at linkedlistdriver.cpp!!
+Expected Outputs:
+test that a newly created list is empty!
+(test passed) new empty test
+test that add works!
+(test passed) new 1 element test
+test that get works and element added was 42!!
+(test passed) 42 is in position 0!
+(test passed) no value is in position 1!
+test that remove works
+(test passed) the element was removed!
+(test passed) removing from empty list!
+the list is empty, nothing to remove :(
 
 Thanks to: lecture videos from spring 2022 and the OSU CS tutoring...
