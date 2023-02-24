@@ -32,11 +32,11 @@ void insert_node(Binary_node *root, int value){
     Binary_node *current = root; //idk why this isn't working
     //need help...
     //idea: start at root, if value > root.value, go left, otherwise, go right. do same with next node to compare... keep doing until node->next is null and add there...
-    
+
 }
 
-void remove_node(){
-
+void remove_node(Binary_node *root, int value){
+    //idea: start at root... compare values until get to node with value inputted... figure out way to choose what node to replace value... (ask question)... make new tree w/o value.. delete value..
 }
 
 int main(){
