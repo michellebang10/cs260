@@ -30,6 +30,7 @@ void post_order_traversal(Binary_node *current) {
 
 void insert_node(Binary_node *root, int value){
     Binary_node *current = root; //idk why this isn't working
+    cout << current->value << endl;
     //need help...
     //idea: start at root, if value > root.value, go left, otherwise, go right. do same with next node to compare... keep doing until node->next is null and add there...
 
@@ -40,12 +41,16 @@ void remove_node(Binary_node *root, int value){
 }
 
 int main(){
-    Binary_node root{42, nullptr, nullptr};
+    Binary_node root{421, nullptr, nullptr};
     Binary_node left{21, nullptr, nullptr};
     Binary_node right{63, nullptr, nullptr};
 
     root.left = &left;
     root.right = &right;
+
+    insert_node(&root, 5);
+    //& address of object
+    //* pointer of object
 
     return 0; 
 }
