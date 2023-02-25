@@ -28,20 +28,47 @@ void post_order_traversal(Binary_node *current) {
     }
 }
 
-void insert_node(Binary_node *root, int value){
-    Binary_node *current = root; //idk why this isn't working
-    cout << current->value << endl;
-    //need help...
-    //idea: start at root, if value > root.value, go left, otherwise, go right. do same with next node to compare... keep doing until node->next is null and add there...
+Binary_node *insert_node(Binary_node *cur_root, int value){ //log(n).. draw out actual tree... and how many nodes to touch... depth of tree
+    Binary_node *current = cur_root;
+    Binary_node *future = current;
+    if(current != nullptr){
+        if (value < current->value){
+            // -> when you have a pointer
+            // . when you have direct access to object
+            current = future;
+            future = current->left;
+        } else{
+            current = future;
+            future = current->right;
+        }
+        //Binary_node *newnode = new Binary_node{value, nullptr, nullptr};
+        if(future == nullptr){
+            Binary_node *newnode = new Binary_node{value, nullptr, nullptr};
+            if (value < current->value){
+                current->left = newnode;
+            } else{
+                current->right = newnode;
+            }
+            return newnode;
+        }
+        //return newnode;
+    }
 
+    return insert_node(future, value);
 }
 
 void remove_node(Binary_node *root, int value){
+    Binary_node *current = root;
+    Binary_node *future;
+
     //idea: start at root... compare values until get to node with value inputted... figure out way to choose what node to replace value... (ask question)... make new tree w/o value.. delete value..
+    //log(n)
+    //either biggest left or smallest right
+    //compare with node that you remove
 }
 
 int main(){
-    Binary_node root{421, nullptr, nullptr};
+    Binary_node root{42, nullptr, nullptr};
     Binary_node left{21, nullptr, nullptr};
     Binary_node right{63, nullptr, nullptr};
 
