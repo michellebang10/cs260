@@ -28,11 +28,11 @@ void post_order_traversal(Binary_node *current) {
     }
 }
 
-Binary_node *insert_node(Binary_node *cur_root, int value){ //log(n).. draw out actual tree... and how many nodes to touch... depth of tree
+Binary_node *insert_node(Binary_node *cur_root, int num){ //log(n).. draw out actual tree... and how many nodes to touch... depth of tree
     Binary_node *current = cur_root;
     Binary_node *future = current;
     if(current != nullptr){
-        if (value < current->value){
+        if (num < current->value){
             // -> when you have a pointer
             // . when you have direct access to object
             current = future;
@@ -43,8 +43,8 @@ Binary_node *insert_node(Binary_node *cur_root, int value){ //log(n).. draw out 
         }
         //Binary_node *newnode = new Binary_node{value, nullptr, nullptr};
         if(future == nullptr){
-            Binary_node *newnode = new Binary_node{value, nullptr, nullptr};
-            if (value < current->value){
+            Binary_node *newnode = new Binary_node{num, nullptr, nullptr};
+            if (num < current->value){
                 current->left = newnode;
             } else{
                 current->right = newnode;
@@ -54,12 +54,46 @@ Binary_node *insert_node(Binary_node *cur_root, int value){ //log(n).. draw out 
         //return newnode;
     }
 
-    return insert_node(future, value);
+    return insert_node(future, num);
 }
 
-void remove_node(Binary_node *root, int value){
-    Binary_node *current = root;
-    Binary_node *future;
+Binary_node *most_right(Binary_node *cur_root){
+    Binary_node *current = cur_root;
+    Binary_node *future = cur_root->left;
+    while(future->left != nullptr){
+        current = future;
+        future = future->right;
+    }
+
+    return current;
+    
+}
+
+
+Binary_node *remove_node(Binary_node *cur_root, int num){
+    Binary_node *current = cur_root;
+    Binary_node *future = current;
+
+    if(current->value == num){
+        if(current->left != nullptr){
+            Binary_node *replacement_node_before = most_right(current->left);
+            Binary_node *replacement_node = replacement_node_before->left;
+            replacement_node->left = current->left;
+            delete current;
+            replacement_node_before->left = nullptr;
+        } else{
+            delete current;
+        }
+        return current;
+    } else if(current->value > num){
+        current = future;
+        future = current->left;
+        remove_node(future, num);
+    } else{
+        current = future;
+        future = current->right;
+        remove_node(future, num);
+    }
 
     //idea: start at root... compare values until get to node with value inputted... figure out way to choose what node to replace value... (ask question)... make new tree w/o value.. delete value..
     //log(n)
