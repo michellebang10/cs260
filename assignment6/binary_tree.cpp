@@ -64,6 +64,9 @@ Binary_node *insert_node(Binary_node *cur_root, int num){ //log(n).. draw out ac
             return newnode;
         }
         //return newnode;
+    } else{
+        Binary_node *newnode = new Binary_node{num, nullptr, nullptr};
+        return newnode;
     }
 
     return insert_node(future, num);
@@ -71,7 +74,7 @@ Binary_node *insert_node(Binary_node *cur_root, int num){ //log(n).. draw out ac
 
 Binary_node *most_right(Binary_node *cur_root){
     //function that finds the largest node to the left.
-    //O(???)... idk what this would be...
+    //O(log(n))... cutting half of the tree each time (in while loop)
 
     Binary_node *current = cur_root;
     Binary_node *future = cur_root->left;
@@ -119,6 +122,11 @@ Binary_node *remove_node(Binary_node *cur_root, int num, Binary_node *parent_nod
     Binary_node *future = current;
     Binary_node *parent = parent_node;
 
+    if(current == nullptr){
+        cout << "this is an empty tree!" << endl;
+        return current;
+    }
+
     if(current->value > num){
         current = future;
         future = current->left;
@@ -135,7 +143,7 @@ Binary_node *remove_node(Binary_node *cur_root, int num, Binary_node *parent_nod
                 Binary_node *before_current = node_before(parent, current);
                 before_current->left = replacement_node;
                 delete current;
-                return replacement_node; //don't know why it doesn't like this line...
+                return replacement_node;
             } else{
                 replacement_node->left = current->left;
                 delete current;
@@ -190,48 +198,74 @@ int main(){
     //& address of object
     //* pointer of object
 
-    Binary_node root{42, nullptr, nullptr};
-    Binary_node left{21, nullptr, nullptr};
-    Binary_node right{63, nullptr, nullptr};
+    Binary_node *root_null = nullptr;
 
-    root.left = &left;
-    root.right = &right;
+    cout << "test 1: empty tree" << endl;
 
-    cout << "original tree: in-order traversal" << endl;
+    cout << "doing the main three traversals on an empty tree...  nothing should be printed" << endl;
 
-    in_order_traversal(&root);
+    in_order_traversal(root_null);
 
-    cout << "original tree: pre-order traversal" << endl;
+    pre_order_traversal(root_null);
 
-    pre_order_traversal(&root);
+    post_order_traversal(root_null);
 
-    cout << "original tree: post-order traversal" << endl;
+    cout << "removing from empty tree" << endl;
 
-    post_order_traversal(&root);
+    remove_node(root_null, 5, root_null);
 
-    insert_node(&root, 5);
+    cout << "adding to an empty tree" << endl;
+
+    //this new node becomes the root of the previously empty tree.
+
+    root_null = insert_node(root_null, 43); 
+
+    in_order_traversal(root_null);
+
+    cout << "test 2: non-empty tree" << endl;
+
+    Binary_node *root = new Binary_node{42, nullptr, nullptr};
+    Binary_node *left = new Binary_node{21, nullptr, nullptr};
+    Binary_node *right = new Binary_node{63, nullptr, nullptr};
+
+    root->left = left;
+    root->right = right;
+
+    cout << "new original tree: in-order traversal" << endl;
+
+    in_order_traversal(root);
+
+    cout << "new original tree: pre-order traversal" << endl;
+
+    pre_order_traversal(root);
+
+    cout << "new original tree: post-order traversal" << endl;
+
+    post_order_traversal(root);
+
+    insert_node(root, 5);
 
     cout << "tree with 5 added at very left" << endl;
 
-    in_order_traversal(&root);
+    in_order_traversal(root);
 
-    remove_node(&root, 5, &root);
+    remove_node(root, 5, root);
 
     cout << "tree with 5 removed" << endl;
 
-    in_order_traversal(&root);
+    in_order_traversal(root);
 
-    insert_node(&root, 5);
+    insert_node(root, 5);
 
     cout << "tree with 5 added again" << endl;
 
-    in_order_traversal(&root);
+    in_order_traversal(root);
 
-    remove_node(&root, 21, &root);
+    remove_node(root, 21, root);
 
     cout << "tree with 21 removed" << endl;
 
-    in_order_traversal(&root);
+    in_order_traversal(root);
 
     return 0; 
 }
