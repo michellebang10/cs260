@@ -12,7 +12,7 @@ ChainHash::ChainHash() : ChainHash(16) {
     //size = 0;
 }
 
-ChainHash::ChainHash(int initial_size) : capacity{initial_size}, insertCount{0}, size{0} {
+ChainHash::ChainHash(int initial_size) : capacity{initial_size}, collisionCount{0}, insertCount{0}, size{0} {
     this->capacity = initial_size;
     table = new list<string>[initial_size];
 }
@@ -21,16 +21,22 @@ ChainHash::ChainHash(int initial_size) : capacity{initial_size}, insertCount{0},
 bool ChainHash::insert(string value) {
     //hash to find location in vector
     int position = hash(value);
-    bool tester = false;
+    bool collision = false;
+
+    if (table[position].empty()){
+        collision = false;
+    } else {
+        collision = true;
+        collisionCount++;
+    }
 
     if (position <= capacity){
         table[position].push_back(value);
         size++;
         insertCount++;
-        tester = true;
-    }
+    } 
 
-    return tester;
+    return collision;
 }
 
 string ChainHash::search(string value) {
@@ -105,6 +111,7 @@ float ChainHash::getFullness() {
 }
 
 int ChainHash::getInsertCount() {return insertCount;}
+int ChainHash::getCollisionCount() {return collisionCount;}
 
 void ChainHash::showHash() {
     for (int i = 0; i < capacity; i++) {

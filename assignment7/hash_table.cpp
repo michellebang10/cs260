@@ -75,7 +75,7 @@ int HashTable::hash(string value) {
     for(char& curr : value) {
         result += curr - 'a' + 1;
     }
-    result %= getCapacity();
+    result %= getCapacity(); // ask about this again!
 
     return result;
 }

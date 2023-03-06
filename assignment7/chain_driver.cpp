@@ -19,10 +19,9 @@ int main() {
     cout << "hash(\"ace\"): " << ht.hash("ace") << endl;
     cout << "hash(\"joe\"): " << ht.hash("joe") << endl;
     cout << "hash(\"bob\"): " << ht.hash("bob") << endl;
-    cout << "hash(\"jj\"): " << ht.hash("jj") << endl; //why 4
 
-    // insert "aaa" and show we have "aaa" in our table
-    ht.insert("aaa");
+    // insert "aaa" and show we have "aaa" in our table... no collision yet...
+    cout << "insert(\"aaa\"): " << (ht.insert("aaa") ? "insert succeeded; collision " : "insert succeeded; no collision") << endl;
     cout << "we have: " << ht.search("aaa") << " in our hash" << endl;
 
     // search for something not in our table
@@ -34,9 +33,6 @@ int main() {
     // attempt to remove value in table
     cout << "remove(\"aaa\"): " << (ht.remove("aaa") ? "removal succeeded" : "removal failed") << endl;
 
-    // attempt to insert value not in table where table position is empty
-    cout << "insert(\"jj\"): " << (ht.insert("jj") ? "insert succeeded" : "insert failed") << endl;
-
     // insert some values
     ht.insert("aaa");
     ht.insert("ace");
@@ -46,19 +42,34 @@ int main() {
 
     cout << "search(\"joe\"): " << "\"" << ht.search("joe") << "\"" << endl;
 
+    // insert in value that would cause collision
+    cout << "insert(\"ab\"): " << (ht.insert("ab") ? "insert succeeded; collision " : "insert succeeded; no collision") << endl;
+    // and make sure the value was still placed in the table!
+    cout << "search(\"ab\"): " << "\"" << ht.search("ab") << "\"" << endl;
+
     // what are size, capacity, and fullness of our good table?
     cout << "ht.getSize(): " << ht.getSize() << endl;
     cout << "ht.getCapacity(): " << ht.getCapacity() << endl;
     cout << "ht.getFullness(): " << ht.getFullness() << endl;
 
-    // insert in value that would "normally" cause collision
-    // no collisions do to chaining
-    cout << "insert(\"ab\"): " << (ht.insert("ab") ? "insert succeeded" : "insert failed") << endl;
-    // and make sure the value was still placed in the table!
-    cout << "search(\"ab\"): " << "\"" << ht.search("ab") << "\"" << endl;
+    // how many collsions so far?
+    cout << "ht.getCollisionCount(): " << ht.getCollisionCount() << endl;
 
     //print table with chaining :D
     ht.showHash();
+
+    cout << "\nNumerators on possibly useful statistics:" << endl;
+    cout << "\tinsert count: " << ht.getInsertCount() << endl;
+    cout << "\tsize: " << ht.getSize() << endl;
+
+    cout << "\nDenominator on possibly useful statistics:" << endl;
+    cout << "\tcollision count: " << ht.getCollisionCount() << endl;
+
+    cout << "\nPossibly useful statistics:" << endl;
+    cout << "\tsize / collision count: " << (float)ht.getSize() / ht.getCollisionCount() << endl;
+    cout << "\tinsert count / collision count: " << (float)ht.getInsertCount() / ht.getCollisionCount() << endl;
+
+    cout << "\nend of program, have a nice day!" << endl;
 
 
     return 0;

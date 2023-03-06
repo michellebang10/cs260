@@ -27,6 +27,7 @@ class ChainHash {
         float getFullness();
 
         int getInsertCount();
+        int getCollisionCount();
 
         void showHash();
 

@@ -26,7 +26,8 @@ int main() {
     // search for something not yet in the table
     cout << "search(\"ace\"): " << "\"" << ht.search("ace") << "\"" << endl;
 
-    // search for a value too large for the table!  And make sure our hash function always gives a value within the table.
+    // search for a value too large for the table! (USED TO) And make sure our hash function always gives a value within the table.
+    // no longer matters due to modulo 
     cout << "search(\"jj\"): " << "\"" << ht.search("jj") << "\"" << endl;
 
     // add and detect a collision
@@ -40,7 +41,7 @@ int main() {
     // attempt to insert value not in table where table position is empty
     cout << "insert(\"jj\"): " << (ht.insert("jj") ? "insert succeeded" : "insert failed") << endl;
 
-    // attempt to remove value not in table where table position is empty
+    // attempt to remove value not in table where table position is empty (NO LONGER THE CASE WITH MODULO)
     cout << "remove(\"jj\"): " << (ht.remove("jj") ? "removal succeeded" : "removal failed") << endl; //question
 
     // attempt to remove value not in table where table position is non-empty
