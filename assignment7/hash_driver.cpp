@@ -1,16 +1,10 @@
 #include <iostream>
 
 #include "hash_table.h"
+#include "hash_table.cpp"
 
 using std::cout;
 using std::endl;
-
-/*
-    ToDo:
-        xrefactor to use an array instead of a vector?
-            .or we manually track our own capacity and ignore the actual capacity of the vector so we can keep using the nice vector functions available to us?
-        Check out why collisions did not happen on main running with arguments "geeks for geeks"
-*/
 
 int main() {
     HashTable ht;
