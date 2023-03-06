@@ -6,6 +6,9 @@
 using std::cout;
 using std::endl;
 
+//following this tutorial: https://www.geeksforgeeks.org/c-program-hashing-chaining/ 
+//combining with ideas from class code...
+
 int main() {
     ChainHash ht;
     // check initial capacity of default construction of hashTable
@@ -16,6 +19,7 @@ int main() {
     cout << "hash(\"ace\"): " << ht.hash("ace") << endl;
     cout << "hash(\"joe\"): " << ht.hash("joe") << endl;
     cout << "hash(\"bob\"): " << ht.hash("bob") << endl;
+    cout << "hash(\"jj\"): " << ht.hash("jj") << endl; //why 4
 
     // insert "aaa" and show we have "aaa" in our table
     ht.insert("aaa");
@@ -29,6 +33,9 @@ int main() {
 
     // attempt to remove value in table
     cout << "remove(\"aaa\"): " << (ht.remove("aaa") ? "removal succeeded" : "removal failed") << endl;
+
+    // attempt to insert value not in table where table position is empty
+    cout << "insert(\"jj\"): " << (ht.insert("jj") ? "insert succeeded" : "insert failed") << endl;
 
     // insert some values
     ht.insert("aaa");

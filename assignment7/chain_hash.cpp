@@ -4,6 +4,9 @@
 using std::cout;
 using std::endl;
 
+//following this tutorial: https://www.geeksforgeeks.org/c-program-hashing-chaining/ 
+//combining with ideas from class code...
+
 ChainHash::ChainHash() : ChainHash(16) {
     //table.reserve(16);
     //size = 0;
@@ -20,13 +23,12 @@ bool ChainHash::insert(string value) {
     int position = hash(value);
     bool tester = false;
 
-    table[position].push_back(value);
-
-    size++;
-
-    insertCount++;
-
-    tester = true;
+    if (position <= capacity){
+        table[position].push_back(value);
+        size++;
+        insertCount++;
+        tester = true;
+    }
 
     return tester;
 }

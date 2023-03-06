@@ -16,6 +16,7 @@ int main() {
     cout << "hash(\"ace\"): " << ht.hash("ace") << endl;
     cout << "hash(\"joe\"): " << ht.hash("joe") << endl;
     cout << "hash(\"bob\"): " << ht.hash("bob") << endl;
+    cout << "hash(\"jj\"): " << ht.hash("jj") << endl; //why 4
 
     // insert aaa, search for aaa, also search for a would-be collision value to see what is in that position
     cout << "insert(\"aaa\"): " << (ht.insert("aaa") ? "collision detected" : "no collision detected") << endl;
@@ -35,6 +36,12 @@ int main() {
 
     // attempt to remove value not in table where table position is empty
     cout << "remove(\"jj\"): " << (ht.remove("jj") ? "removal succeeded" : "removal failed") << endl;
+
+    // attempt to insert value not in table where table position is empty
+    cout << "insert(\"jj\"): " << (ht.insert("jj") ? "insert succeeded" : "insert failed") << endl;
+
+    // attempt to remove value not in table where table position is empty
+    cout << "remove(\"jj\"): " << (ht.remove("jj") ? "removal succeeded" : "removal failed") << endl; //question
 
     // attempt to remove value not in table where table position is non-empty
     cout << "remove(\"aaa\"): " << (ht.remove("aaa") ? "removal succeeded" : "removal failed") << endl;
