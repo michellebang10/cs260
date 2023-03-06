@@ -9,13 +9,28 @@ using std::vector;
 class HashTable {
     public:
         HashTable();
-        HashTable(int);
+        HashTable(int initial_size);
 
-        void insert(string value);
+        bool insert(string value);
         string search(string value);
         bool remove(string value);
+
         int hash(string value);
+
+        int getCapacity();
+        int getSize();
+        float getFullness();
+
+        int getInsertCount();
+        int getCollisionCount();
+
+        string toString();
 
     private:
         vector<string> table;
+        int size;
+        int capacity;
+
+        int insertCount;
+        int collisionCount;
 };
