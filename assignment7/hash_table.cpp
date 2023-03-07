@@ -3,14 +3,14 @@
 
 #include "hash_table.h"
 
-HashTable::HashTable() : HashTable(16) {
+HashTable::HashTable() : HashTable(16) { //O(1)... straightforward...
     //table.reserve(16);
     //size = 0;
 }
 
 HashTable::HashTable(int initial_size) : capacity{initial_size}, collisionCount{0}, insertCount{0}, size{0} {
     table.reserve(initial_size);
-    for(int i = 0; i < initial_size; ++i) {
+    for(int i = 0; i < initial_size; ++i) { //O(k) where k is the initial size
         table.push_back(""); // could use iota to use iterators to fill in those valuies instead...
     }
     //size = 0; // this could also be done with a "member initialization list", which can do references with parens ( ) or values with braces { }
@@ -18,7 +18,7 @@ HashTable::HashTable(int initial_size) : capacity{initial_size}, collisionCount{
 }
 
 //takes a string value, and places that value at the hashed location in our table, return if placement causes a collision.
-bool HashTable::insert(string value) {
+bool HashTable::insert(string value) { //O(1)... go to specific position...
     //hash to find location in vector
     int candidate_position = hash(value);
     //detect if a collision is about to occur, assume no collision, set collision variable if one is detected
@@ -44,14 +44,14 @@ bool HashTable::insert(string value) {
     return collision;
 }
 
-string HashTable::search(string value) {
+string HashTable::search(string value) { //O(1)... go to specific position...
     //hash the value to find the position to check in the table and return the value found...
     //we might want to switch this to be a boolean representing whether or not the value passed in matches the value in the table where the value would be found...
     return table.at(hash(value));
 }
 
 //remove value from table if it is in the table, return success of removal.
-bool HashTable::remove(string value) {
+bool HashTable::remove(string value) { //O(1)... go to specific position...
     //find hash
     int candidate_position = hash(value);
     //check if value in table is the same as our proposed value and empty if so, do not empty otherwise!
@@ -67,25 +67,25 @@ bool HashTable::remove(string value) {
 }
 
 //rake a string value and returns a hash that represents the position that it would go in this table's vector.
-int HashTable::hash(string value) {
+int HashTable::hash(string value) { //O(k) where k is the length of the string
     //position in the alphabet for the hash...
     //walk through string, adding up the poisitonal data of each character
     int result = 0;
-    //we assume all lower-case characters, we should do some input validation somewhere!
+    //we assume all lower-case characters
     for(char& curr : value) {
         result += curr - 'a' + 1;
     }
-    result %= getCapacity(); // ask about this again!
+    result %= getCapacity(); 
 
     return result;
 }
 
 //helper function to fetch current capacity
-int HashTable::getCapacity() {return capacity;}
+int HashTable::getCapacity() {return capacity;} //O(1)
 //helper function to fetch current size
-int HashTable::getSize() {return size;}
+int HashTable::getSize() {return size;} //O(1)
 //helper function to fetch current "fullness"
-float HashTable::getFullness() {
+float HashTable::getFullness() { //O(1)... straightforward function
     int cap = getCapacity();
     float result = 0.0f;
     if(cap != 0) {
@@ -96,10 +96,10 @@ float HashTable::getFullness() {
     return result;
 }
 
-int HashTable::getInsertCount() {return insertCount;}
-int HashTable::getCollisionCount() {return collisionCount;}
+int HashTable::getInsertCount() {return insertCount;} //O(1)
+int HashTable::getCollisionCount() {return collisionCount;} //O(1)
 
-string HashTable::toString() {
+string HashTable::toString() { //O(n) where n is the total number of elements in the table.
     string result = "[";
 
     for(int key = 0; key < getCapacity(); ++key) {

@@ -30,8 +30,10 @@ int main() {
     // attempt to remove value not in table
     cout << "remove(\"ab\"): " << (ht.remove("ab") ? "removal succeeded" : "removal failed") << endl;
 
-    // attempt to remove value in table
+    // attempt to remove value that is in table
     cout << "remove(\"aaa\"): " << (ht.remove("aaa") ? "removal succeeded" : "removal failed") << endl;
+    // show that value is no longer in table
+    ht.search("aaa");
 
     // insert some values
     ht.insert("aaa");
