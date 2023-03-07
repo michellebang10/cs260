@@ -194,3 +194,5 @@ Possibly useful statistics:
 	insert count / collision count: 3.5
 
 end of program, have a nice day!
+
+Note: It was really helpful to go over hash tables in class and also code it out. Also big thanks to geeksforgeeks for the tutorial for the chain hashing... I was able to implement their code so it fit a similar structure as our class code. It was also really helpful to talk about time complexity during office hours :DD Though these topics can be self-taught, it's always helpful to talk to someone about it and ask for help for specific questions. 
