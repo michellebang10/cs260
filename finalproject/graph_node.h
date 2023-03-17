@@ -15,12 +15,16 @@ struct GraphNode {
 
     string toString() {
         string result = "";
-        result += this->name + " (";
+        result += this->name + " [Friends: ";
         for(auto neighbor: this->friendship) {
             result += neighbor->name + ", ";
         }
-        result += ")";
-
+        result += "] [Friendship Levels: ";
+        for(auto edge: this->friendshipLevel) { //why not working???
+            result += edge->level + ", ";
+        }
+        result += "]";
+    
         return result;
     }
 };

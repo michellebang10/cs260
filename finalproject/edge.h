@@ -2,6 +2,8 @@
 
 #include "graph_node.h"
 
+struct GraphNode;
+
 struct Edge {
     GraphNode *person;
     GraphNode *pal; // would use "friend" but code doesn't like it :(

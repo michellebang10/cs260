@@ -26,22 +26,26 @@ Edge * Graph::addEdge(GraphNode *person, GraphNode *pal, int level) {
 
 // Remove a node if it exists, returns true if a node is removed, false otherwise
 bool Graph::removeNode(string name) {
+    //use find node helper
+    //friendship.erase(i)
+    //friendshipLevel.erase(i)
 
 }
 
 // Remove an edge if it exists, returns true if an edge is removed, false otherwise
 bool Graph::removeEdge(string person, string pal) {
-
+    //use find edge helper
+    //use friendshipLevel.erase(i)
 }
 
 // Check if a node exists with the given name, returns true if node exists, false otherwise...
 bool Graph::nodeExists(string name) {
-
+    //use find node helper...
 }
 
 // Check if an edge exists with the given name, returns true if edge exists, false otherwise...
 bool Graph::edgeExists(string person, string pal) {
-
+    //use fine edge helper...
 }
 
 /* Print out all nodes and edges in the form:
@@ -64,6 +68,7 @@ string Graph::toString() {
 string Graph::shortestPath(GraphNode *person) {
     string path = "";
     //helppp
+    //compare person to all nodes....
 
     return path;
 }
@@ -76,7 +81,9 @@ string Graph::minimumSpanningTree() {
         if(i == 1){
             tree += this->nodes.at(i)->toString() + ", ";
         } else{
-            
+            //compare edges of all neighbors...
+            //choose smallest edge...
+            //add to tree..
         }
     }
 
@@ -103,5 +110,8 @@ Edge *Graph::findEdgeHelper(string person, string pal) {
     //    helppp
     //}
 
+    //for(auto edge: this->nodes->friendshipLevel){
+        //help meeee
+    //}
 }
 
