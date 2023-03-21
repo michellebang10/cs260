@@ -95,25 +95,113 @@ string Graph::toString() {
 
 // Find shortest path from node with name to each other node that can be reached, returns a string with that information
 string Graph::shortestPath(GraphNode *person) {
-    string path = "";
+    string path = "node             distance      parent\n";
     //helppp
     //compare person to all nodes....
     //idea: create an array/list that stores distances
     //start with inf
     //then start from the beginning and add prev.... (if possible)
     //should check lecture videos....
-    for(int i = 0; i < this->nodes.size(); i ++) {
-        GraphNode * tester = this->nodes.at(i);
-        if (person == tester){
-            path += person->name + " to " + person->name + ": 0 \n";
-        } else if (edgeExists(person->name, tester->name)){
-            Edge * edgeCheck = findEdgeHelper(person->name, tester->name);
-            path += person->name + " to " + tester->name + ": " + std::to_string(edgeCheck->level) + "\n"; 
-        } else{
+    //for(int i = 0; i < this->nodes.size(); i ++) {
+        //GraphNode * tester = this->nodes.at(i);
+        //if (person == tester){
+        //    path += person->name + " to " + person->name + ": 0 \n";
+        //} else if (edgeExists(person->name, tester->name)){
+        //    Edge * edgeCheck = findEdgeHelper(person->name, tester->name);
+        //    path += person->name + " to " + tester->name + ": " + std::to_string(edgeCheck->level) + "\n"; 
+        //} else{
 
+        //}
+
+    //}
+
+    vector<GraphNode *> listNodes;
+    vector<GraphNode *> queue;
+    vector<GraphNode *> parent;
+    vector<int> distances;
+    
+    listNodes[0] = person;
+    distances[0] = 0;
+    parent[0] = person;
+
+    for(int i = 1; i < this->nodes.size(); i++){
+        distances[i] = INFINITY;
+    }
+
+    GraphNode * current = person;
+
+    bool checker = true;
+
+    if(current->friendship.size() == 0){
+        checker = false;
+    }
+
+    int counter = 0;
+    for(int i = 0; i < this->nodes.size(); i++){
+        if(this->nodes.at(i)->friendship.size() == 0){
+            counter += 1;
+        }
+    }
+
+    while (checker){
+        for(int i = 0; i < current->friendship.size(); i++){
+            queue[i] = current->friendship.at(i);
         }
 
+        for(int m = 0; m < queue.size(); m++){
+            bool check = true;
+            for(int n = 0; n < listNodes.size(); n++){
+                if(listNodes[n] == queue[m]){
+                    check = false;
+                    break;
+                }
+            }
+            if(check){
+                listNodes.push_back(queue[m]);
+            }
+        }
+
+        for(int z = 0; z < queue.size(); z++){
+            auto it = find(listNodes.begin(), listNodes.end(), queue[z]);
+            int index = it - listNodes.begin();
+            Edge * edge = findEdgeHelper(current->name, queue[z]->name);
+            auto it2 = find(listNodes.begin(), listNodes.end(), current);
+            int i2 = it2 - listNodes.begin();
+            int totEdge = edge->level + distances[i2];
+            if (totEdge < distances[index]){
+                distances[index] = totEdge;
+                parent[index] = current;
+            }
+        }
+
+        auto it2 = find(listNodes.begin(), listNodes.end(), current);
+        int i2 = it2 - listNodes.begin();
+
+        current = listNodes.at(i2 + 1);
+
+        if(listNodes.size() == this->nodes.size() - counter){
+            checker = false;
+        }
     }
+
+    for(int i = 0; i < this->nodes.size(); i++){
+        bool check = true;
+        for(int n = 0; n < listNodes.size(); n++){
+            if(listNodes[n] == this->nodes.at(i)){
+                check = false;
+                break;
+            }
+        }
+        if(check){
+            listNodes.push_back(this->nodes.at(i));
+        }
+    }
+
+    for(int j = 0; j < this->nodes.size(); j++){
+        path += listNodes[j]->name + "  " + std::to_string(distances[j]) + "  " + parent[j]->name + "\n";
+    }
+
+    
 
     return path;
 }

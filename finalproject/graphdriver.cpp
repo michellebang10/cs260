@@ -29,7 +29,7 @@ int main(){
     cout << "Does Tiana and Michelle's friendship exist?: " << (my_graph.edgeExists("Tiana", "Michelle") ? "The friendship exists!" : "The friendship does not exist :(") << endl;
 
 
-
+    cout << "Shortest Path from Tiana: " << my_graph.shortestPath(tiana) << endl;
 
 
     return 0;
