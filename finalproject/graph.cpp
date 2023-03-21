@@ -15,9 +15,12 @@ GraphNode * Graph::addNode(string name) {
 // Add an edge using person and pal as names of nodes to connect
 Edge * Graph::addEdge(GraphNode *person, GraphNode *pal, int level) {
     Edge * new_edge = new Edge{person, pal, level};
+    Edge * new_edge2 = new Edge{pal, person, level};
+
+    this->edges.push_back(new_edge);
 
     person->friendshipLevel.push_back(new_edge);
-    pal->friendshipLevel.push_back(new_edge);
+    pal->friendshipLevel.push_back(new_edge2);
 
     person->friendship.push_back(pal);
     pal->friendship.push_back(person);
@@ -95,37 +98,22 @@ string Graph::toString() {
 
 // Find shortest path from node with name to each other node that can be reached, returns a string with that information
 string Graph::shortestPath(GraphNode *person) {
-    string path = "node             distance      parent\n";
-    //helppp
-    //compare person to all nodes....
-    //idea: create an array/list that stores distances
-    //start with inf
-    //then start from the beginning and add prev.... (if possible)
-    //should check lecture videos....
-    //for(int i = 0; i < this->nodes.size(); i ++) {
-        //GraphNode * tester = this->nodes.at(i);
-        //if (person == tester){
-        //    path += person->name + " to " + person->name + ": 0 \n";
-        //} else if (edgeExists(person->name, tester->name)){
-        //    Edge * edgeCheck = findEdgeHelper(person->name, tester->name);
-        //    path += person->name + " to " + tester->name + ": " + std::to_string(edgeCheck->level) + "\n"; 
-        //} else{
-
-        //}
-
-    //}
+    string path = "node     dist    parent\n";
 
     vector<GraphNode *> listNodes;
     vector<GraphNode *> queue;
     vector<GraphNode *> parent;
     vector<int> distances;
     
-    listNodes[0] = person;
-    distances[0] = 0;
-    parent[0] = person;
+    listNodes.push_back(person);
+    distances.push_back(0);
 
     for(int i = 1; i < this->nodes.size(); i++){
-        distances[i] = INFINITY;
+        distances.push_back(100000);
+    }
+
+    for(int i = 0; i < this->nodes.size(); i++){
+        parent.push_back(nullptr);
     }
 
     GraphNode * current = person;
@@ -145,7 +133,7 @@ string Graph::shortestPath(GraphNode *person) {
 
     while (checker){
         for(int i = 0; i < current->friendship.size(); i++){
-            queue[i] = current->friendship.at(i);
+            queue.push_back(current->friendship.at(i));
         }
 
         for(int m = 0; m < queue.size(); m++){
@@ -169,8 +157,8 @@ string Graph::shortestPath(GraphNode *person) {
             int i2 = it2 - listNodes.begin();
             int totEdge = edge->level + distances[i2];
             if (totEdge < distances[index]){
-                distances[index] = totEdge;
-                parent[index] = current;
+                distances.at(index) = totEdge;
+                parent.at(index) = current;
             }
         }
 
@@ -182,6 +170,8 @@ string Graph::shortestPath(GraphNode *person) {
         if(listNodes.size() == this->nodes.size() - counter){
             checker = false;
         }
+
+        queue.clear();
     }
 
     for(int i = 0; i < this->nodes.size(); i++){
@@ -198,12 +188,40 @@ string Graph::shortestPath(GraphNode *person) {
     }
 
     for(int j = 0; j < this->nodes.size(); j++){
-        path += listNodes[j]->name + "  " + std::to_string(distances[j]) + "  " + parent[j]->name + "\n";
+        if(parent[j] != nullptr){
+            path += listNodes[j]->name + "      " + std::to_string(distances[j]) + "      " + parent[j]->name + "\n";
+        } else{
+            if(distances[j] == 100000){
+                path += listNodes[j]->name + "      " + "inf" + "      " + "null" + "\n";
+            } else{
+                path += listNodes[j]->name + "      " + std::to_string(distances[j]) + "      " + "null" + "\n";
+            }
+        }
     }
 
     
 
     return path;
+
+
+    //OLD SCRATCH WORK:
+    //compare person to all nodes....
+    //idea: create an array/list that stores distances
+    //start with inf
+    //then start from the beginning and add prev.... (if possible)
+    //should check lecture videos....
+    //for(int i = 0; i < this->nodes.size(); i ++) {
+        //GraphNode * tester = this->nodes.at(i);
+        //if (person == tester){
+        //    path += person->name + " to " + person->name + ": 0 \n";
+        //} else if (edgeExists(person->name, tester->name)){
+        //    Edge * edgeCheck = findEdgeHelper(person->name, tester->name);
+        //    path += person->name + " to " + tester->name + ": " + std::to_string(edgeCheck->level) + "\n"; 
+        //} else{
+
+        //}
+
+    //}
 }
 
 // Find a minimum spanning tree and return it.
@@ -212,6 +230,71 @@ string Graph::minimumSpanningTree() {
 
     //idea: keep connecting smallest edges together
 
+    vector<Edge *> listEdge;
+
+
+    for(int i = 0; i < this->edges.size(); i++){
+        listEdge.push_back(this->edges.at(i));
+    }
+
+    bool check = false;
+
+    for(int i = 0; i < listEdge.size() - 1; i++){
+        for(int j = 0; j < listEdge.size() - i - 1; j++){
+            if(listEdge[j] > listEdge[j+1]){
+                Edge * hold = listEdge[j];
+                listEdge[j] = listEdge[j+1];
+                listEdge[j+1] = hold;
+                check = true;
+            }
+        }
+
+        if(check == false){
+            break;
+        }
+    }
+    
+    vector<Edge *> treeEdges;
+    for(int i = 0; i < listEdge.size(); i++){
+        bool adder = true;
+        for(int j = 0; j < treeEdges.size(); j++){
+            if(treeEdges.at(j)->person == listEdge.at(i)->person && treeEdges.at(j)->pal == listEdge.at(i)->pal){
+                adder = false;
+                break;
+            }
+        }
+
+        if(adder){
+            treeEdges.push_back(listEdge.at(i));
+        }
+    }
+
+    bool checker = false;
+
+    for(int i = 0; i < treeEdges.size() - 1; i++){
+        for(int j = 0; j < treeEdges.size() - i - 1; j++){
+            if(treeEdges[j]->pal != treeEdges[j+1]->person){
+                Edge * hold = treeEdges[j];
+                treeEdges[j] = treeEdges[j+1];
+                treeEdges[j+1] = hold;
+                checker = true;
+            }
+        }
+
+        if(checker == false){
+            break;
+        }
+    }
+
+    for(int i = 0; i < treeEdges.size(); i++){
+        if(i == 0){
+            tree += treeEdges.at(i)->person->name;
+        } else if(i == treeEdges.size() - 1) {
+            tree += "-->" + treeEdges.at(i)->pal->name;
+        } else{
+            tree += "-->" + treeEdges.at(i)->pal->name;
+        }
+    }
     
 
     return tree;

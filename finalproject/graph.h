@@ -29,6 +29,7 @@ class Graph {
 
     private:
         vector<GraphNode *> nodes;
+        vector<Edge *> edges;
         GraphNode *findNodeHelper(string name);
         Edge *findEdgeHelper(string person, string pal);
 };
