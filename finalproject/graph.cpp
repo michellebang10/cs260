@@ -26,6 +26,7 @@ Edge * Graph::addEdge(GraphNode *person, GraphNode *pal, int level) {
 }
 
 // Remove a node if it exists, returns true if a node is removed, false otherwise
+// NOT REQUIRED: WILL DO IF I HAVE TIME
 bool Graph::removeNode(string name) {
     //use find node helper
     //friendship.erase(i)
@@ -33,6 +34,10 @@ bool Graph::removeNode(string name) {
     GraphNode * gone = findNodeHelper(name);
 
     if (gone != nullptr){
+        //check all nodes where gone != node
+        //go through friendshipLevels, delete edge with gone
+        //go through friendships, delete gone
+        //then go through nodes and delete gone
         return true;
     }
 
@@ -41,9 +46,21 @@ bool Graph::removeNode(string name) {
 }
 
 // Remove an edge if it exists, returns true if an edge is removed, false otherwise
+// NOT REQUIRED: WILL DO IF I HAVE TIME
 bool Graph::removeEdge(string person, string pal) {
     //use find edge helper
     //use friendshipLevel.erase(i)
+    Edge * gone = findEdgeHelper(person, pal);
+
+    if (gone != nullptr){
+        //go through person's friendships, delete pal
+        //go through person's friendshipLevels, delete gone
+        //go through pal's friendships, delete person
+        //go through pal's friendshipLevels, delete gone
+        return true;
+    }
+
+    return false;
 }
 
 // Check if a node exists with the given name, returns true if node exists, false otherwise...
