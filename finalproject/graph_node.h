@@ -21,7 +21,7 @@ struct GraphNode {
         }
         result += "] [Friendship Levels: ";
         for(auto edge: this->friendshipLevel) { //why not working???
-            result += edge->level + ", ";
+            result += std::to_string(edge->level) + ", ";
         }
         result += "]";
     

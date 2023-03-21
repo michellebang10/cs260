@@ -22,6 +22,14 @@ int main(){
 
     cout << "my_graph.to_string: " << my_graph.toString() << endl;
 
+    cout << "Does Tiana exist?: " << (my_graph.nodeExists("Tiana") ? "Tiana exists!" : "Tiana does not exists :(") << endl;
+    cout << "Does Tiana and Cathy's friendship exist?: " << (my_graph.edgeExists("Tiana", "Cathy") ? "The friendship exists!" : "The friendship does not exist :(") << endl;
+
+    cout << "Does Bob exist?: " << (my_graph.nodeExists("Bob") ? "Bob exists!" : "Bob does not exists :(") << endl;
+    cout << "Does Tiana and Michelle's friendship exist?: " << (my_graph.edgeExists("Tiana", "Michelle") ? "The friendship exists!" : "The friendship does not exist :(") << endl;
+
+
+
 
 
     return 0;

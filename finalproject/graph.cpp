@@ -1,5 +1,6 @@
 #include "graph.h"
 #include "edge.h"
+#include <string>
 using std::string;
 
 // Add a node using name, returns the node added
@@ -29,6 +30,13 @@ bool Graph::removeNode(string name) {
     //use find node helper
     //friendship.erase(i)
     //friendshipLevel.erase(i)
+    GraphNode * gone = findNodeHelper(name);
+
+    if (gone != nullptr){
+        return true;
+    }
+
+    return false;
 
 }
 
@@ -41,19 +49,25 @@ bool Graph::removeEdge(string person, string pal) {
 // Check if a node exists with the given name, returns true if node exists, false otherwise...
 bool Graph::nodeExists(string name) {
     //use find node helper...
+    GraphNode * check = findNodeHelper(name);
+    
+    if (check != nullptr){
+        return true;
+    }
+    return false;
 }
 
 // Check if an edge exists with the given name, returns true if edge exists, false otherwise...
 bool Graph::edgeExists(string person, string pal) {
+    Edge * check = findEdgeHelper(person, pal);
+
+    if (check != nullptr){
+        return true;
+    }
+    return false;
     //use fine edge helper...
 }
 
-/* Print out all nodes and edges in the form:
-    a -> b, c, e
-    b -> d, q
-    c -> a, b, e, q
-    ...
-*/
 string Graph::toString() {
     string result = ""; //should use a string builder
     for(int i = 0; i < this->nodes.size(); i++) { //should use iterator instead, since a vector supports iterators
@@ -69,6 +83,22 @@ string Graph::shortestPath(GraphNode *person) {
     string path = "";
     //helppp
     //compare person to all nodes....
+    //idea: create an array/list that stores distances
+    //start with inf
+    //then start from the beginning and add prev.... (if possible)
+    //should check lecture videos....
+    for(int i = 0; i < this->nodes.size(); i ++) {
+        GraphNode * tester = this->nodes.at(i);
+        if (person == tester){
+            path += person->name + " to " + person->name + ": 0 \n";
+        } else if (edgeExists(person->name, tester->name)){
+            Edge * edgeCheck = findEdgeHelper(person->name, tester->name);
+            path += person->name + " to " + tester->name + ": " + std::to_string(edgeCheck->level) + "\n"; 
+        } else{
+
+        }
+
+    }
 
     return path;
 }
@@ -77,15 +107,9 @@ string Graph::shortestPath(GraphNode *person) {
 string Graph::minimumSpanningTree() {
     string tree = "";
 
-    for(int i = 0; i < this->nodes.size(); i++){
-        if(i == 1){
-            tree += this->nodes.at(i)->toString() + ", ";
-        } else{
-            //compare edges of all neighbors...
-            //choose smallest edge...
-            //add to tree..
-        }
-    }
+    //idea: keep connecting smallest edges together
+
+    
 
     return tree;
 
@@ -113,5 +137,18 @@ Edge *Graph::findEdgeHelper(string person, string pal) {
     //for(auto edge: this->nodes->friendshipLevel){
         //help meeee
     //}
+
+    for(int i = 0; i < this->nodes.size(); i++){
+        if (this->nodes.at(i)->name == person){
+            for (int n = 0; n < this->nodes.at(i)->friendshipLevel.size(); n++){
+                if (this->nodes.at(i)->friendshipLevel.at(n)->pal->name == pal){
+                    return this->nodes.at(i)->friendshipLevel.at(n);
+                }
+
+            }
+        }
+    }
+
+    return nullptr;
 }
 
