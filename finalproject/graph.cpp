@@ -241,7 +241,7 @@ string Graph::minimumSpanningTree() {
 
     for(int i = 0; i < listEdge.size() - 1; i++){
         for(int j = 0; j < listEdge.size() - i - 1; j++){
-            if(listEdge[j] > listEdge[j+1]){
+            if(listEdge[j]->level > listEdge[j+1]->level){
                 Edge * hold = listEdge[j];
                 listEdge[j] = listEdge[j+1];
                 listEdge[j+1] = hold;
@@ -253,49 +253,63 @@ string Graph::minimumSpanningTree() {
             break;
         }
     }
-    
+
     vector<Edge *> treeEdges;
+    vector<GraphNode *> treeNodes;
     for(int i = 0; i < listEdge.size(); i++){
         bool adder = true;
-        for(int j = 0; j < treeEdges.size(); j++){
-            if(treeEdges.at(j)->person == listEdge.at(i)->person && treeEdges.at(j)->pal == listEdge.at(i)->pal){
-                adder = false;
-                break;
+        for(int j = 0; j < treeNodes.size(); j++){
+            if(treeNodes.at(j) == listEdge.at(i)->person){
+                for(int k = 0; k < treeNodes.size(); k++){
+                    if(treeNodes.at(k) == listEdge.at(i)->pal){
+                        adder = false;
+                        break;
+                    }
+                }
             }
         }
 
         if(adder){
             treeEdges.push_back(listEdge.at(i));
+            treeNodes.push_back(listEdge.at(i)->person);
+            treeNodes.push_back(listEdge.at(i)->pal);
         }
     }
 
     bool checker = false;
 
-    for(int i = 0; i < treeEdges.size() - 1; i++){
-        for(int j = 0; j < treeEdges.size() - i - 1; j++){
-            if(treeEdges[j]->pal != treeEdges[j+1]->person){
-                Edge * hold = treeEdges[j];
-                treeEdges[j] = treeEdges[j+1];
-                treeEdges[j+1] = hold;
-                checker = true;
-            }
-        }
+    //for(int i = 0; i < treeEdges.size() - 1; i++){
+    //    for(int j = 0; j < treeEdges.size() - i - 1; j++){
+    //        if(treeEdges[j]->pal != treeEdges[j+1]->person){
+    //            Edge * hold = treeEdges[j];
+    //            treeEdges[j] = treeEdges[j+1];
+    //            treeEdges[j+1] = hold;
+    //            checker = true;
+    //        }
+    //    }
 
-        if(checker == false){
-            break;
-        }
-    }
+    //    if(checker == false){
+    //        break;
+    //    }
+    //}
 
-    for(int i = 0; i < treeEdges.size(); i++){
-        if(i == 0){
-            tree += treeEdges.at(i)->person->name;
-        } else if(i == treeEdges.size() - 1) {
-            tree += "-->" + treeEdges.at(i)->pal->name;
-        } else{
-            tree += "-->" + treeEdges.at(i)->pal->name;
-        }
-    }
+    //for(int i = 0; i < treeEdges.size(); i++){
+    //    if(i == 0){
+    //        tree += treeEdges.at(i)->person->name;
+    //    } else if(i == treeEdges.size() - 1) {
+    //        tree += "-->" + treeEdges.at(i)->pal->name;
+    //    } else{
+    //        tree += "-->" + treeEdges.at(i)->pal->name;
+    //    }
+    //}
     
+    int totalLevel = 0;
+    for(int i = 0; i < treeEdges.size(); i++){
+        tree += treeEdges.at(i)->person->name + "  " + std::to_string(treeEdges.at(i)->level) + "  " + treeEdges.at(i)->pal->name + "\n";
+        totalLevel += treeEdges.at(i)->level;
+    }
+
+    tree += "Total: " + std::to_string(totalLevel);
 
     return tree;
 

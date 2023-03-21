@@ -39,7 +39,7 @@ int main(){
     //testing from different node
     cout << "Shortest Path from Miche: \n" << my_graph.shortestPath(miche) << endl;
 
-    cout << "Minimum spanning tree: \n" << my_graph.minimumSpanningTree() << endl;
+    cout << "Minimum Spanning Tree: \n" << my_graph.minimumSpanningTree() << endl;
 
 
     return 0;
