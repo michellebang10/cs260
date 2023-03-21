@@ -82,17 +82,15 @@ bool Graph::edgeExists(string person, string pal) {
         return true;
     }
     return false;
-    //use fine edge helper...
 }
 
 string Graph::toString() {
-    string result = ""; //should use a string builder
-    for(int i = 0; i < this->nodes.size(); i++) { //should use iterator instead, since a vector supports iterators
+    string result = ""; 
+    for(int i = 0; i < this->nodes.size(); i++) { 
         result += this->nodes.at(i)->toString() + ", ";
     }
 
     return result;
-
 }
 
 // Find shortest path from node with name to each other node that can be reached, returns a string with that information
@@ -147,14 +145,6 @@ GraphNode *Graph::findNodeHelper(string name) {
 
 // Finds the edge with named person and pal, return pointer to that edge
 Edge *Graph::findEdgeHelper(string person, string pal) {
-    //for(int i = 0; i < this->nodes.size()->friendshipLevel.size(); i ++){
-    //    helppp
-    //}
-
-    //for(auto edge: this->nodes->friendshipLevel){
-        //help meeee
-    //}
-
     for(int i = 0; i < this->nodes.size(); i++){
         if (this->nodes.at(i)->name == person){
             for (int n = 0; n < this->nodes.at(i)->friendshipLevel.size(); n++){
