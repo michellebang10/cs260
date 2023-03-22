@@ -39,8 +39,19 @@ int main(){
     //testing from different node
     cout << "Shortest Path from Miche: \n" << my_graph.shortestPath(miche) << endl;
 
+    //minimum spanning tree on basic tree
     cout << "Minimum Spanning Tree: \n" << my_graph.minimumSpanningTree() << endl;
 
+    //minimum spanning tree on more complex tree
+    GraphNode *helen = my_graph.addNode("Helen");
+    GraphNode *vyna = my_graph.addNode("Vyna");
+    GraphNode *grace = my_graph.addNode("Grace");
+
+    Edge *mich_he = my_graph.addEdge(miche, helen, 90);
+    Edge *he_vyna = my_graph.addEdge(helen, vyna, 85);
+    Edge *cat_grace = my_graph.addEdge(cathy, grace, 50);
+
+    cout << "Minimum Spanning Tree: \n" << my_graph.minimumSpanningTree() << endl;
 
     return 0;
 }

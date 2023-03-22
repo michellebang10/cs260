@@ -256,17 +256,49 @@ string Graph::minimumSpanningTree() {
 
     vector<Edge *> treeEdges;
     vector<GraphNode *> treeNodes;
+    //vector<GraphNode* > parentNodes;
+    //vector<GraphNode *> palNodes;
+    //vector<GraphNode *> perNodes;
+
     for(int i = 0; i < listEdge.size(); i++){
         bool adder = true;
+        
+        bool adder1 = true;
         for(int j = 0; j < treeNodes.size(); j++){
-            if(treeNodes.at(j) == listEdge.at(i)->person){
-                for(int k = 0; k < treeNodes.size(); k++){
-                    if(treeNodes.at(k) == listEdge.at(i)->pal){
-                        adder = false;
+            bool helper = edgeExists(treeNodes.at(j)->name, listEdge.at(i)->person->name);
+            if (helper){
+                Edge * ehelp = findEdgeHelper(treeNodes.at(j)->name, listEdge.at(i)->person->name);
+                Edge * ehelp2 = findEdgeHelper(listEdge.at(i)->person->name, treeNodes.at(j)->name);
+                if(ehelp != listEdge.at(i) && ehelp2 != listEdge.at(i)){
+                    for(int k = 0; k < treeEdges.size(); k++){
+                        if(ehelp == treeEdges.at(k) || ehelp2 == treeEdges.at(k)){
+                            adder1 = false;
                         break;
+                        }
                     }
                 }
             }
+        }
+
+        bool adder2 = true;
+        for(int j = 0; j < treeNodes.size(); j++){
+            bool helper = edgeExists(treeNodes.at(j)->name, listEdge.at(i)->pal->name);
+            if (helper){
+                Edge * ehelp = findEdgeHelper(treeNodes.at(j)->name, listEdge.at(i)->person->name);
+                Edge * ehelp2 = findEdgeHelper(listEdge.at(i)->person->name, treeNodes.at(j)->name);
+                if(ehelp != listEdge.at(i) && ehelp2 != listEdge.at(i)){
+                    for(int k = 0; k < treeEdges.size(); k++){
+                        if(ehelp == treeEdges.at(k) || ehelp2 == treeEdges.at(k)){
+                            adder2 = false;
+                        break;
+                        }
+                    }
+                }
+            }
+        }
+
+        if(adder1 == false && adder2 == false){
+            adder = false;
         }
 
         if(adder){
@@ -276,7 +308,71 @@ string Graph::minimumSpanningTree() {
         }
     }
 
-    bool checker = false;
+
+
+    //for(int i = 0; i < listEdge.size(); i++){
+    //    bool adder = true;
+    //    bool adderpal = true;
+    //    bool adderper = true;
+
+    //    for(int j = 0; j < parentNodes.size(); j++){
+    //        if(parentNodes.at(j) == listEdge.at(i)->pal){
+    //            adderpal = false;
+    //            break;
+    //        }
+    //    }
+
+    //    for(int j = 0; j < parentNodes.size(); j++){
+    //        if(parentNodes.at(j) == listEdge.at(i)->person){
+    //            adderper = false;
+    //            break;
+    //        }
+    //    }
+
+    //    if(adderpal == false && adderper == false){
+    //        adder = false;
+    //    }
+
+    //    if(adder){
+    //        treeEdges.push_back(listEdge.at(i));
+    //    }
+
+    //    if(adderpal == false && adderper == true){
+    //        parentNodes.push_back(listEdge.at(i)->person);
+    //    }
+
+    //    if(adderper == false && adderpal == true){
+    //        parentNodes.push_back(listEdge.at(i)->pal);
+    //    }
+
+    //    if(adderper && adderpal){
+    //        parentNodes.push_back(listEdge.at(i)->pal);
+    //    }
+
+    //}
+
+
+    //for(int i = 0; i < listEdge.size(); i++){
+    //    bool adder = true;
+        //for(int j = 0; j < treeNodes.size(); j++){
+        //    if(treeNodes.at(j) == listEdge.at(i)->person){
+        //        for(int k = 0; k < treeNodes.size(); k++){
+        //            if(treeNodes.at(k) == listEdge.at(i)->pal){
+        //                adder = false;
+        //                break;
+        //            }
+        //       }
+        //    }
+        //}
+
+        //if(adder){
+        //    treeEdges.push_back(listEdge.at(i));
+        //    treeNodes.push_back(listEdge.at(i)->person);
+        //    treeNodes.push_back(listEdge.at(i)->pal);
+        //}
+    //}
+
+    //bool checker = false;
 
     //for(int i = 0; i < treeEdges.size() - 1; i++){
     //    for(int j = 0; j < treeEdges.size() - i - 1; j++){
