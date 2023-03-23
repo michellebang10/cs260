@@ -32,4 +32,5 @@ class Graph {
         vector<Edge *> edges;
         GraphNode *findNodeHelper(string name);
         Edge *findEdgeHelper(string person, string pal);
+        bool findConnectivity(vector<GraphNode *> allNodes, vector<Edge *> allEdges, GraphNode *first, GraphNode *last);
 };

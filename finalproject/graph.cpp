@@ -4,7 +4,7 @@
 using std::string;
 
 // Add a node using name, returns the node added
-GraphNode * Graph::addNode(string name) {
+GraphNode * Graph::addNode(string name) { //O(1)
     GraphNode * new_node = new GraphNode{name, vector<Edge *>(), vector<GraphNode *>()};
 
     this->nodes.push_back(new_node);
@@ -13,7 +13,7 @@ GraphNode * Graph::addNode(string name) {
 }
 
 // Add an edge using person and pal as names of nodes to connect
-Edge * Graph::addEdge(GraphNode *person, GraphNode *pal, int level) {
+Edge * Graph::addEdge(GraphNode *person, GraphNode *pal, int level) { //O(1)
     Edge * new_edge = new Edge{person, pal, level};
     Edge * new_edge2 = new Edge{pal, person, level};
 
@@ -97,7 +97,7 @@ string Graph::toString() {
 }
 
 // Find shortest path from node with name to each other node that can be reached, returns a string with that information
-string Graph::shortestPath(GraphNode *person) {
+string Graph::shortestPath(GraphNode *person) { //O(n) or O(n^2) <- look at more...
     string path = "node     dist    parent\n";
 
     vector<GraphNode *> listNodes;
@@ -224,6 +224,26 @@ string Graph::shortestPath(GraphNode *person) {
     //}
 }
 
+bool Graph::findConnectivity(vector<GraphNode *> allNodes, vector<Edge *> allEdges, GraphNode *first, GraphNode *last){
+    for(int i = 0; i < allNodes.size(); i++){
+        bool helper = edgeExists(first->name, allNodes.at(i)->name);
+        if(helper){
+            Edge * ehelp1 = findEdgeHelper(first->name, allNodes.at(i)->name);
+            Edge * ehelp2 = findEdgeHelper(allNodes.at(i)->name, first->name);
+            for(int j = 0; j < allEdges.size(); j++){
+                if(ehelp1 == allEdges.at(j) || ehelp2 == allEdges.at(j)){
+                    if(allNodes.at(i) == last){
+                        return true;
+                    }else{
+                        return(findConnectivity(allNodes, allEdges, allNodes.at(i), last));
+                    }  
+                }
+            }
+        }
+    }
+    return false;
+}
+
 // Find a minimum spanning tree and return it.
 string Graph::minimumSpanningTree() {
     string tree = "";
@@ -260,56 +280,72 @@ string Graph::minimumSpanningTree() {
     //vector<GraphNode *> palNodes;
     //vector<GraphNode *> perNodes;
 
-    for(int i = 0; i < listEdge.size(); i++){
-        bool adder = true;
-        
-        bool adder1 = true;
-        for(int j = 0; j < treeNodes.size(); j++){
-            bool helper = edgeExists(treeNodes.at(j)->name, listEdge.at(i)->person->name);
-            if (helper){
-                Edge * ehelp = findEdgeHelper(treeNodes.at(j)->name, listEdge.at(i)->person->name);
-                Edge * ehelp2 = findEdgeHelper(listEdge.at(i)->person->name, treeNodes.at(j)->name);
-                if(ehelp != listEdge.at(i) && ehelp2 != listEdge.at(i)){
-                    for(int k = 0; k < treeEdges.size(); k++){
-                        if(ehelp == treeEdges.at(k) || ehelp2 == treeEdges.at(k)){
-                            adder1 = false;
-                        break;
-                        }
-                    }
-                }
-            }
-        }
-
-        bool adder2 = true;
-        for(int j = 0; j < treeNodes.size(); j++){
-            bool helper = edgeExists(treeNodes.at(j)->name, listEdge.at(i)->pal->name);
-            if (helper){
-                Edge * ehelp = findEdgeHelper(treeNodes.at(j)->name, listEdge.at(i)->person->name);
-                Edge * ehelp2 = findEdgeHelper(listEdge.at(i)->person->name, treeNodes.at(j)->name);
-                if(ehelp != listEdge.at(i) && ehelp2 != listEdge.at(i)){
-                    for(int k = 0; k < treeEdges.size(); k++){
-                        if(ehelp == treeEdges.at(k) || ehelp2 == treeEdges.at(k)){
-                            adder2 = false;
-                        break;
-                        }
-                    }
-                }
-            }
-        }
-
-        if(adder1 == false && adder2 == false){
-            adder = false;
-        }
-
-        if(adder){
-            treeEdges.push_back(listEdge.at(i));
-            treeNodes.push_back(listEdge.at(i)->person);
-            treeNodes.push_back(listEdge.at(i)->pal);
+    //FIFTH ATTEMPT
+    for(int k = 0; k < listEdge.size(); k++){
+        GraphNode * first = listEdge.at(k)->person;
+        GraphNode * last = listEdge.at(k)->pal;
+        bool checker = findConnectivity(treeNodes, treeEdges, first, last);
+        if(checker == false){
+            treeEdges.push_back(listEdge.at(k));
+            treeNodes.push_back(listEdge.at(k)->person);
+            treeNodes.push_back(listEdge.at(k)->pal);
         }
     }
 
 
 
+
+    //FOURTH ATTEMPT
+    //for(int i = 0; i < listEdge.size(); i++){
+    //    bool adder = true;
+        
+    //    bool adder1 = true;
+    //    for(int j = 0; j < treeNodes.size(); j++){
+    //        bool helper = edgeExists(treeNodes.at(j)->name, listEdge.at(i)->person->name);
+    //        if (helper){
+    //            Edge * ehelp = findEdgeHelper(treeNodes.at(j)->name, listEdge.at(i)->person->name);
+    //            Edge * ehelp2 = findEdgeHelper(listEdge.at(i)->person->name, treeNodes.at(j)->name);
+    //            if(ehelp != listEdge.at(i) && ehelp2 != listEdge.at(i)){
+    //                for(int k = 0; k < treeEdges.size(); k++){
+    //                    if(ehelp == treeEdges.at(k) || ehelp2 == treeEdges.at(k)){
+    //                        adder1 = false;
+    //                    break;
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+
+    //    bool adder2 = true;
+    //    for(int j = 0; j < treeNodes.size(); j++){
+    //        bool helper = edgeExists(treeNodes.at(j)->name, listEdge.at(i)->pal->name);
+    //        if (helper){
+    //            Edge * ehelp = findEdgeHelper(treeNodes.at(j)->name, listEdge.at(i)->person->name);
+    //            Edge * ehelp2 = findEdgeHelper(listEdge.at(i)->person->name, treeNodes.at(j)->name);
+    //            if(ehelp != listEdge.at(i) && ehelp2 != listEdge.at(i)){
+    //                for(int k = 0; k < treeEdges.size(); k++){
+    //                    if(ehelp == treeEdges.at(k) || ehelp2 == treeEdges.at(k)){
+    //                        adder2 = false;
+    //                    break;
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+
+    //    if(adder1 == false && adder2 == false){
+    //        adder = false;
+    //    }
+
+    //    if(adder){
+    //        treeEdges.push_back(listEdge.at(i));
+    //        treeNodes.push_back(listEdge.at(i)->person);
+    //        treeNodes.push_back(listEdge.at(i)->pal);
+    //    }
+    //}
+
+
+    //THIRD ATTEMPT
     //for(int i = 0; i < listEdge.size(); i++){
     //    bool adder = true;
     //    bool adderpal = true;
@@ -351,7 +387,7 @@ string Graph::minimumSpanningTree() {
 
     //}
 
-
+    //SECOND ATTEMPT
     //for(int i = 0; i < listEdge.size(); i++){
     //    bool adder = true;
         //for(int j = 0; j < treeNodes.size(); j++){
@@ -372,6 +408,7 @@ string Graph::minimumSpanningTree() {
         //}
     //}
 
+    //FIRST ATTEMPT
     //bool checker = false;
 
     //for(int i = 0; i < treeEdges.size() - 1; i++){
@@ -413,7 +450,7 @@ string Graph::minimumSpanningTree() {
 
 // Start of private functions
 // Finds the node with name, return pointer to that node
-GraphNode *Graph::findNodeHelper(string name) {
+GraphNode *Graph::findNodeHelper(string name) { //O(n) where n is length of total nodes
     for(int i = 0; i < this->nodes.size(); i++){
         if (this->nodes.at(i)->name == name){
             return this->nodes.at(i);
@@ -425,7 +462,7 @@ GraphNode *Graph::findNodeHelper(string name) {
 }
 
 // Finds the edge with named person and pal, return pointer to that edge
-Edge *Graph::findEdgeHelper(string person, string pal) {
+Edge *Graph::findEdgeHelper(string person, string pal) { //O(n*m) <- check this one
     for(int i = 0; i < this->nodes.size(); i++){
         if (this->nodes.at(i)->name == person){
             for (int n = 0; n < this->nodes.at(i)->friendshipLevel.size(); n++){
