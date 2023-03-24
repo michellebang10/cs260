@@ -21,98 +21,166 @@
 5) Code inputs/outputs
 - My code inputs can be found under graphdriver.cpp
 - Outputs:
+
 Testing if a node that is not in the graph exists:
+
 Does Tiana exist?: Tiana does not exists :(
 
+
 Testing if an edge that is not added to graph exists:
+
 Does Tiana and Cathy's friendship exist?: The friendship does not exist :(
 
+
 Testing a node that is added to the graph exists:
+
 Does Tiana exist?: Tiana exists!
 
+
+
 Testing an edge that is added to graph exists:
+
 Does Tiana and Cathy's friendship exist?: The friendship exists!
 
+
 Current graph: 
+
 Miche[Friends: ]
+
 Tiana[Friends: Megan: 70, Cathy: 80, ]
+
 Cathy[Friends: Tiana: 80, ]
+
 Megan[Friends: Tiana: 70, ]
+
 
 Tesing shortest path on simple case: 
 
 Shortest Path from Tiana: 
+
 node     dist    parent
+
 Tiana      0      null
+
 Megan      70      Tiana
+
 Cathy      80      Tiana
+
 Miche      inf      null
+
 
 Testing shortest path on more complex case: 
 
 Current graph: 
+
 Miche[Friends: Megan: 20, Cathy: 60, ]
+
 Tiana[Friends: Megan: 70, Cathy: 80, ]
+
 Cathy[Friends: Tiana: 80, Miche: 60, ]
+
 Megan[Friends: Tiana: 70, Miche: 20, ]
 
+
 Shortest Path from Tiana: 
+
 node     dist    parent
+
 Tiana      0      null
+
 Megan      70      Tiana
+
 Cathy      80      Tiana
+
 Miche      90      Megan
+
 
 Testing shortest path from different node: 
 
 Shortest Path from Miche: 
+
 node     dist    parent
+
 Miche      0      null
+
 Megan      20      Miche
+
 Cathy      60      Miche
+
 Tiana      90      Megan
+
 
 Testing MST on basic tree: 
 
 Current graph: 
+
 Miche[Friends: Megan: 20, Cathy: 60, ]
+
 Tiana[Friends: Megan: 70, Cathy: 80, ]
+
 Cathy[Friends: Tiana: 80, Miche: 60, ]
+
 Megan[Friends: Tiana: 70, Miche: 20, ]
 
+
 Minimum Spanning Tree: 
+
 Megan  20  Miche
+
 Cathy  60  Miche
+
 Tiana  70  Megan
+
 Total: 150
+
 
 Testing MST on more complex case: 
 
 Current graph: 
+
 Miche[Friends: Megan: 20, Cathy: 60, Helen: 90, ]
+
 Tiana[Friends: Megan: 70, Cathy: 80, ]
+
 Cathy[Friends: Tiana: 80, Miche: 60, Grace: 50, ]
+
 Megan[Friends: Tiana: 70, Miche: 20, ]
+
 Helen[Friends: Miche: 90, Vyna: 85, ]
+
 Vyna[Friends: Helen: 85, ]
+
 Grace[Friends: Cathy: 50, ]
 
+
 Minimum Spanning Tree: 
+
 Megan  20  Miche
+
 Cathy  50  Grace
+
 Cathy  60  Miche
+
 Tiana  70  Megan
+
 Helen  85  Vyna
+
 Miche  90  Helen
+
 Total: 375
+
 
 Testing on empty graph 
 
 Current graph: 
 
+
 Shortest Path from Miche: 
+
 This node does not exist.
 
+
 Minimum Spanning Tree: 
+
 This is an empty graph.
 
