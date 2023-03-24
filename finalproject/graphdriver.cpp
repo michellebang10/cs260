@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "graph.h" // when debugging
-//#include "graph.cpp" // when running
+//#include "graph.h" // when debugging
+#include "graph.cpp" // when running
 #include "edge.h"
 
 using std::cout;

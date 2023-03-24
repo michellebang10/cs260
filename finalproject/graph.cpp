@@ -224,6 +224,7 @@ string Graph::shortestPath(GraphNode *person) { //O(n) or O(n^2) <- look at more
     //}
 }
 
+// Created this function for the 5th attempt of MST... did not work out well... </3
 bool Graph::findConnectivity(vector<GraphNode *> allNodes, vector<Edge *> allEdges, GraphNode *first, GraphNode *last){
     for(int i = 0; i < allNodes.size(); i++){
         bool helper = edgeExists(first->name, allNodes.at(i)->name);
@@ -253,13 +254,13 @@ string Graph::minimumSpanningTree() {
     vector<Edge *> listEdge;
 
 
-    for(int i = 0; i < this->edges.size(); i++){
+    for(int i = 0; i < this->edges.size(); i++){ //Creating a list of edges from the graph.
         listEdge.push_back(this->edges.at(i));
     }
 
     bool check = false;
 
-    for(int i = 0; i < listEdge.size() - 1; i++){
+    for(int i = 0; i < listEdge.size() - 1; i++){ //Sorting the edges from smallest to largest value.
         for(int j = 0; j < listEdge.size() - i - 1; j++){
             if(listEdge[j]->level > listEdge[j+1]->level){
                 Edge * hold = listEdge[j];
@@ -276,26 +277,59 @@ string Graph::minimumSpanningTree() {
 
     vector<Edge *> treeEdges;
     vector<GraphNode *> treeNodes;
-    //vector<GraphNode* > parentNodes;
+    vector<GraphNode* > parentNodes;
     //vector<GraphNode *> palNodes;
     //vector<GraphNode *> perNodes;
 
-    //FIFTH ATTEMPT
-    for(int k = 0; k < listEdge.size(); k++){
-        GraphNode * first = listEdge.at(k)->person;
-        GraphNode * last = listEdge.at(k)->pal;
-        bool checker = findConnectivity(treeNodes, treeEdges, first, last);
-        if(checker == false){
-            treeEdges.push_back(listEdge.at(k));
-            treeNodes.push_back(listEdge.at(k)->person);
-            treeNodes.push_back(listEdge.at(k)->pal);
+
+    //SIXTH ATTEMPT
+
+    for(int i = 0; i < this->nodes.size(); i++){
+        treeNodes.push_back(nodes.at(i));
+        parentNodes.push_back(nodes.at(i));
+    }
+
+    for(int i = 0; i < listEdge.size(); i++){
+        GraphNode * first = listEdge.at(i)->person;
+        GraphNode * last = listEdge.at(i)->pal;
+
+        auto it = find(treeNodes.begin(), treeNodes.end(), listEdge.at(i)->person);
+        int index = it - treeNodes.begin();
+        auto it2 = find(treeNodes.begin(), treeNodes.end(), listEdge.at(i)->pal);
+        int index2 = it2 - treeNodes.begin();
+
+        if(parentNodes.at(index) != parentNodes.at(index2)){
+            treeEdges.push_back(listEdge.at(i));
+            GraphNode * oldParent = parentNodes.at(index2);
+            for(int n = 0; n < parentNodes.size(); n++){
+                if(parentNodes.at(n) == oldParent){
+                    parentNodes.at(n) = parentNodes.at(index);
+                }
+            }
         }
     }
+
+
+    //FIFTH ATTEMPT
+    //Weird attempt where not all the edges that existed in the graph were being counted for.
+
+    //for(int k = 0; k < listEdge.size(); k++){
+    //    GraphNode * first = listEdge.at(k)->person;
+    //    GraphNode * last = listEdge.at(k)->pal;
+    //    bool checker = findConnectivity(treeNodes, treeEdges, first, last);
+    //    if(checker == false){
+    //        treeEdges.push_back(listEdge.at(k));
+    //        treeNodes.push_back(listEdge.at(k)->person);
+    //        treeNodes.push_back(listEdge.at(k)->pal);
+    //    }
+    //}
 
 
 
 
     //FOURTH ATTEMPT
+    //Did not catch cycles either...
+
     //for(int i = 0; i < listEdge.size(); i++){
     //    bool adder = true;
         
@@ -346,6 +380,8 @@ string Graph::minimumSpanningTree() {
 
 
     //THIRD ATTEMPT
+    //Did not catch cycles...
+
     //for(int i = 0; i < listEdge.size(); i++){
     //    bool adder = true;
     //    bool adderpal = true;
@@ -388,6 +424,8 @@ string Graph::minimumSpanningTree() {
     //}
 
     //SECOND ATTEMPT
+    //Okay attempt... worked for simple graph but not more complex graphs...
+
     //for(int i = 0; i < listEdge.size(); i++){
     //    bool adder = true;
         //for(int j = 0; j < treeNodes.size(); j++){
@@ -409,6 +447,8 @@ string Graph::minimumSpanningTree() {
     //}
 
     //FIRST ATTEMPT
+    //Just me testing out stuff... Did not expect it to work and it did not work lol
+
     //bool checker = false;
 
     //for(int i = 0; i < treeEdges.size() - 1; i++){
