@@ -184,3 +184,6 @@ Minimum Spanning Tree:
 
 This is an empty graph.
 
+
+
+Notes: This project took a lot longer than I thought (mainly due to the MST... I spent soooo many hours on it because I kept getting stuck), but I felt like I learned a lot from it :)! Thank you for being so understanding and helpful during these times!!! I had a great time taking this class with you!!!
