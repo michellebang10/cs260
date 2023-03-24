@@ -102,7 +102,7 @@ string Graph::toString() { //O(n+m) where n is the number of nodes and m is the 
 }
 
 // Find shortest path from node with name to each other node that can be reached, returns a string with that information
-string Graph::shortestPath(string name) { //O(n+m) where n is the number of nodes and m is the number of numbers. We are going through all the nodes and edges of our graph...
+string Graph::shortestPath(string name) { //O(n+m) where n is the number of nodes and m is the number of edges. We are going through all the nodes and edges of our graph...
     string path = "node     dist    parent\n";
 
     GraphNode * person = findNodeHelper(name); //Grab node with the name in question/
@@ -257,7 +257,7 @@ bool Graph::findConnectivity(vector<GraphNode *> allNodes, vector<Edge *> allEdg
 }
 
 // Find a minimum spanning tree and return it.
-string Graph::minimumSpanningTree() { //O(nlogm) or O(nlogn) or O(n^2) where n is the number of edges and m is the number of nodes (will elaborate in README)
+string Graph::minimumSpanningTree() { //O(mlogm) or O(mlogn) or O(m^2) where m is the number of edges and n is the number of nodes (will elaborate in README)
     string tree = "";
 
     //idea: keep connecting smallest edges together

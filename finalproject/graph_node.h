@@ -13,7 +13,7 @@ struct GraphNode { //Simple node struct that creates a "person".
     vector<Edge *> friendshipLevel; //People are connected by friendship levels :3
     vector<GraphNode *> friendship; //Collecting all the friendships you have :3
 
-    string toString() {
+    string toString() { //O(n) is the number of friends (because you have one friendship which each friend)
         string result = "";
 
         result += this->name + "[Friends: "; //Get name of node.
